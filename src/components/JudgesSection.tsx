@@ -25,6 +25,20 @@ const judges = [
     image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop',
     linkedin: '#',
   },
+  {
+    name: 'Guest Judge 1',
+    title: 'TBD',
+    company: '',
+    image: '',
+    linkedin: '#',
+  },
+  {
+    name: 'Guest Judge 2',
+    title: 'TBD',
+    company: '',
+    image: '',
+    linkedin: '#',
+  },
 ];
 
 export default function JudgesSection() {
@@ -50,21 +64,27 @@ export default function JudgesSection() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {judges.map((judge, index) => (
               <motion.div
                 key={judge.name}
                 initial={{ opacity: 0, y: 50, rotateY: -20 }}
                 animate={isInView ? { opacity: 1, y: 0, rotateY: 0 } : {}}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
-                className="bg-glass p-6 rounded-xl hover-glow group perspective-1000"
+                className="bg-glass p-4 rounded-lg hover-glow group perspective-1000"
               >
                 <div className="relative mb-6 overflow-hidden rounded-lg border-2 border-primary/30 group-hover:border-primary transition-all duration-300">
-                  <img
-                    src={judge.image}
-                    alt={judge.name}
-                    className="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
+                  {judge.image ? (
+                    <img
+                      src={judge.image}
+                      alt={judge.name}
+                      className="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                  ) : (
+                    <div className="w-full aspect-square bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                      {/* blank placeholder for now */}
+                    </div>
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
                     <a
                       href={judge.linkedin}
@@ -76,9 +96,9 @@ export default function JudgesSection() {
                     </a>
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold mb-2">{judge.name}</h3>
-                <p className="text-primary font-semibold mb-1">{judge.title}</p>
-                <p className="text-muted-foreground">{judge.company}</p>
+                <h3 className="text-lg font-bold mb-1">{judge.name}</h3>
+                <p className="text-sm text-primary font-semibold mb-1">{judge.title}</p>
+                <p className="text-sm text-muted-foreground">{judge.company}</p>
               </motion.div>
             ))}
           </div>

@@ -71,9 +71,9 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="mb-12 max-w-3xl mx-auto"
+            className="mb-8 max-w-2xl mx-auto"
           >
-            <div className="grid grid-cols-4 gap-4 md:gap-6">
+            <div className="grid grid-cols-4 gap-3 md:gap-4">
               {[
                 { label: 'Days', value: timeLeft.days },
                 { label: 'Hours', value: timeLeft.hours },
@@ -82,12 +82,12 @@ export default function HeroSection() {
               ].map((item, index) => (
                 <div
                   key={item.label}
-                  className="bg-glass p-4 md:p-6 rounded-lg hover-glow"
+                  className="bg-glass p-3 md:p-4 rounded-lg hover-glow flex flex-col items-center"
                 >
-                  <div className="text-3xl md:text-5xl font-black text-primary glow-neon">
+                  <div className="text-2xl md:text-4xl font-black text-primary glow-neon leading-tight">
                     {String(item.value).padStart(2, '0')}
                   </div>
-                  <div className="text-xs md:text-sm text-muted-foreground mt-2">
+                  <div className="text-[10px] md:text-xs text-muted-foreground mt-1">
                     {item.label}
                   </div>
                 </div>

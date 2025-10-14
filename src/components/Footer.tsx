@@ -1,24 +1,30 @@
 import { Github, Twitter, Linkedin, Mail } from 'lucide-react';
+import logo from '@/assets/logo.jpg';
 
 export default function Footer() {
   return (
-    <footer className="relative py-12 border-t border-border/30">
+    <footer className="relative py-12 border-t border-border/30 bg-glass backdrop-blur-xl">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            {/* Logo & Description */}
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center glow-neon">
-                  <span className="text-2xl font-bold text-primary-foreground">T</span>
+            {/* Logo & Description (large left-aligned logo) */}
+            <div className="flex items-start space-x-6 mb-2">
+              <img
+                src={logo}
+                alt="BUILDFOLIO logo"
+                className="w-28 h-28 md:w-36 md:h-36 rounded-lg object-cover shadow-lg"
+              />
+
+              <div>
+                <div className="flex items-center space-x-3">
+                  <span className="text-2xl md:text-3xl font-orbitron font-bold gradient-text">
+                    BUILDFOLIO
+                  </span>
                 </div>
-                <span className="text-xl font-orbitron font-bold gradient-text">
-                  TechVerse
-                </span>
+                <p className="text-muted-foreground text-sm leading-relaxed mt-3 max-w-md">
+                  Empowering developers and designers to showcase their talent through innovative challenges and community events.
+                </p>
               </div>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                Empowering developers and designers to showcase their talent through innovative challenges and community events.
-              </p>
             </div>
 
             {/* Quick Links */}

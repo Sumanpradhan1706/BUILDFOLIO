@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { Code2, Palette, Trophy } from 'lucide-react';
+import portfolioImage from '@/assets/portfolio-workspace.jpg';
 
 export default function AboutSection() {
   const ref = useRef(null);
@@ -44,6 +45,35 @@ export default function AboutSection() {
               TechVerse invites developers and designers to showcase their creativity and build something extraordinary.
             </p>
           </div>
+
+          {/* Image + Description Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16"
+          >
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-primary to-primary/50 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000"></div>
+              <img
+                src={portfolioImage}
+                alt="Portfolio crafting workspace"
+                className="relative rounded-2xl w-full h-auto object-cover border-2 border-primary/30 group-hover:border-primary transition-all duration-300"
+              />
+            </div>
+            <div className="space-y-6">
+              <h3 className="text-3xl font-bold">Craft Your Digital Masterpiece</h3>
+              <p className="text-muted-foreground leading-relaxed text-lg">
+                Buildfolio is more than just a competition—it's a journey into the art of portfolio creation. 
+                Whether you're a seasoned developer or just starting out, this challenge pushes you to showcase 
+                your best work in a stunning, professional portfolio.
+              </p>
+              <p className="text-muted-foreground leading-relaxed text-lg">
+                Over 36 hours, you'll have the opportunity to design, develop, and deploy a portfolio that 
+                truly represents your skills and personality. Join hundreds of creators in this exciting challenge!
+              </p>
+            </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             {features.map((feature, index) => (

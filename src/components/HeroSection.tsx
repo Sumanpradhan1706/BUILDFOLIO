@@ -1,8 +1,38 @@
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Calendar, Clock, MapPin, Mail } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 export default function HeroSection() {
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  useEffect(() => {
+    const eventDate = new Date('2025-11-15T00:00:00').getTime();
+
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const distance = eventDate - now;
+
+      if (distance > 0) {
+        setTimeLeft({
+          days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((distance % (1000 * 60)) / 1000),
+        });
+      }
+    };
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center pt-20">
       <div className="container mx-auto px-4">
@@ -41,38 +71,27 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12 max-w-2xl mx-auto"
+            className="mb-12 max-w-3xl mx-auto"
           >
-            <div className="flex items-center justify-center space-x-3 bg-glass p-4 rounded-lg hover-glow">
-              <Calendar className="text-primary" size={24} />
-              <div className="text-left">
-                <p className="text-sm text-muted-foreground">Event Date</p>
-                <p className="font-semibold">15-16 Nov, 2025</p>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-center space-x-3 bg-glass p-4 rounded-lg hover-glow">
-              <Clock className="text-primary" size={24} />
-              <div className="text-left">
-                <p className="text-sm text-muted-foreground">Duration</p>
-                <p className="font-semibold">36 Hours</p>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-center space-x-3 bg-glass p-4 rounded-lg hover-glow">
-              <MapPin className="text-primary" size={24} />
-              <div className="text-left">
-                <p className="text-sm text-muted-foreground">Venue</p>
-                <p className="font-semibold">Online</p>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-center space-x-3 bg-glass p-4 rounded-lg hover-glow">
-              <Mail className="text-primary" size={24} />
-              <div className="text-left">
-                <p className="text-sm text-muted-foreground">Contact</p>
-                <p className="font-semibold text-xs">techversecommunity7@gmail.com</p>
-              </div>
+            <div className="grid grid-cols-4 gap-4 md:gap-6">
+              {[
+                { label: 'Days', value: timeLeft.days },
+                { label: 'Hours', value: timeLeft.hours },
+                { label: 'Minutes', value: timeLeft.minutes },
+                { label: 'Seconds', value: timeLeft.seconds },
+              ].map((item, index) => (
+                <div
+                  key={item.label}
+                  className="bg-glass p-4 md:p-6 rounded-lg hover-glow"
+                >
+                  <div className="text-3xl md:text-5xl font-black text-primary glow-neon">
+                    {String(item.value).padStart(2, '0')}
+                  </div>
+                  <div className="text-xs md:text-sm text-muted-foreground mt-2">
+                    {item.label}
+                  </div>
+                </div>
+              ))}
             </div>
           </motion.div>
 

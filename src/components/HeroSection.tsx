@@ -42,7 +42,7 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-6xl md:text-8xl font-black mb-6 glow-neon">
+            <h1 className="text-4xl sm:text-6xl md:text-8xl font-black mb-6 glow-neon">
               BUILD<span className="text-primary">•</span>FOLIO
             </h1>
           </motion.div>

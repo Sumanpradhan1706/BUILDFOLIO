@@ -72,48 +72,82 @@ export default function TimelineSection() {
           </div>
 
           <div className="relative">
-            {/* Vertical Timeline Line */}
-            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-primary transform -translate-x-1/2 hidden md:block" />
-
-            <div className="space-y-12 md:space-y-24">
-              {timelineEvents.map((event, index) => (
-                <motion.div
-                  key={event.title}
-                  initial={{ opacity: 0, x: event.side === 'left' ? -50 : 50 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.8, delay: index * 0.2 }}
-                  className={`relative flex items-center ${event.side === 'left'
-                    ? 'md:flex-row-reverse'
-                    : 'md:flex-row'
-                    } flex-col md:gap-8`}
-                >
-                  {/* Content Card */}
-                  <div className={`w-full md:w-5/12 ${event.side === 'left' ? 'md:text-right' : 'md:text-left'} text-center`}>
-                    <div className="bg-glass p-6 rounded-xl hover-glow group border border-primary/20">
-                      <div className={`flex items-center gap-3 mb-4 ${event.side === 'left' ? 'md:justify-end' : 'md:justify-start'} justify-center`}>
-                        <event.icon className="text-primary" size={24} />
-                        <span className="text-primary font-semibold">{event.date}</span>
+            {/* Mobile Timeline (left-anchored) */}
+            <div className="md:hidden">
+              <div className="relative pl-12">
+                <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-primary" />
+                <div className="space-y-6">
+                  {timelineEvents.map((event, index) => (
+                    <motion.div
+                      key={event.title}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={isInView ? { opacity: 1, x: 0 } : {}}
+                      transition={{ duration: 0.6, delay: index * 0.12 }}
+                      className="flex items-start space-x-4"
+                    >
+                      <div className="flex-shrink-0 w-12 flex items-start justify-center">
+                        <div className="relative">
+                          <div className="w-4 h-4 bg-primary rounded-full mt-2 shadow-sm" />
+                        </div>
                       </div>
-                      <h3 className="text-2xl font-bold mb-3">{event.title}</h3>
-                      <p className="text-foreground/80 leading-relaxed">
-                        {event.description}
-                      </p>
-                    </div>
-                  </div>
 
-                  {/* Center Node */}
-                  <div className="absolute left-1/2 transform -translate-x-1/2 hidden md:block">
-                    <div className="w-5 h-5 bg-primary rounded-full border-4 border-background shadow-[0_0_20px_rgba(0,198,255,0.8)]" />
-                  </div>
-
-                  {/* Empty space for alignment */}
-                  <div className="hidden md:block w-5/12" />
-                </motion.div>
-              ))}
+                      <div className="flex-1">
+                        <div className="bg-glass p-4 rounded-lg border border-primary/20 hover-glow">
+                          <div className="flex items-center gap-2 mb-2">
+                            <event.icon className="text-primary" size={18} />
+                            <span className="text-primary text-sm font-semibold">{event.date}</span>
+                          </div>
+                          <h3 className="text-lg font-bold mb-1">{event.title}</h3>
+                          <p className="text-foreground/80 text-sm leading-relaxed">{event.description}</p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
             </div>
 
-            {/* Mobile Timeline */}
-            <div className="md:hidden absolute left-8 top-0 bottom-0 w-0.5 bg-primary" />
+            {/* Desktop Timeline (unchanged) */}
+            <div className="hidden md:block">
+              <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-primary transform -translate-x-1/2" />
+
+              <div className="space-y-12 md:space-y-24">
+                {timelineEvents.map((event, index) => (
+                  <motion.div
+                    key={event.title}
+                    initial={{ opacity: 0, x: event.side === 'left' ? -50 : 50 }}
+                    animate={isInView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ duration: 0.8, delay: index * 0.2 }}
+                    className={`relative flex items-center ${event.side === 'left'
+                      ? 'md:flex-row-reverse'
+                      : 'md:flex-row'
+                      } flex-col md:gap-8`}
+                  >
+                    {/* Content Card */}
+                    <div className={`w-full md:w-5/12 ${event.side === 'left' ? 'md:text-right' : 'md:text-left'} text-center`}>
+                      <div className="bg-glass p-6 rounded-xl hover-glow group border border-primary/20">
+                        <div className={`flex items-center gap-3 mb-4 ${event.side === 'left' ? 'md:justify-end' : 'md:justify-start'} justify-center`}>
+                          <event.icon className="text-primary" size={24} />
+                          <span className="text-primary font-semibold">{event.date}</span>
+                        </div>
+                        <h3 className="text-2xl font-bold mb-3">{event.title}</h3>
+                        <p className="text-foreground/80 leading-relaxed">
+                          {event.description}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Center Node */}
+                    <div className="absolute left-1/2 transform -translate-x-1/2">
+                      <div className="w-5 h-5 bg-primary rounded-full border-4 border-background shadow-[0_0_20px_rgba(0,198,255,0.8)]" />
+                    </div>
+
+                    {/* Empty space for alignment */}
+                    <div className="w-5/12" />
+                  </motion.div>
+                ))}
+              </div>
+            </div>
           </div>
         </motion.div>
       </div>

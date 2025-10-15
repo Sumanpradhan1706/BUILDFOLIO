@@ -41,7 +41,7 @@ export default function AboutSection() {
               About <span className="gradient-text">Buildfolio</span>
             </h2>
             <p className="text-xl text-foreground/90 max-w-3xl mx-auto leading-relaxed">
-              Get ready to build, flex, and flaunt your creativity — because <span className="text-primary font-semibold">TechVerse</span> is bringing you the most awaited showdown of skills and style: <span className="font-bold">💥 BuildFolio 2025! 💥</span>
+              Get ready to build, flex, and flaunt your creativity — because <span className="text-primary font-semibold">TechVerse</span> is bringing you the most awaited showdown of skills and style: <span className="font-bold"> BuildFolio 2025! </span>
             </p>
           </div>
 

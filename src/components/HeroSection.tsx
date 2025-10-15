@@ -62,8 +62,16 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <p className="text-lg md:text-xl text-muted-foreground mb-8">
-              Hosted by <span className="text-primary font-semibold">TechVerse Community</span>
+            <p className="text-lg md:text-xl text-foreground/85 mb-8">
+              Hosted by{' '}
+              <a
+                href="https://chat.whatsapp.com/DRBBLzTOMndAEaf7e9Ddq9"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary font-semibold underline underline-offset-4 hover:text-primary/80 transition-colors"
+              >
+                TechVerse Community
+              </a>
             </p>
           </motion.div>
 
@@ -87,7 +95,7 @@ export default function HeroSection() {
                   <div className="text-2xl md:text-4xl font-black text-primary glow-neon leading-tight">
                     {String(item.value).padStart(2, '0')}
                   </div>
-                  <div className="text-[10px] md:text-xs text-muted-foreground mt-1">
+                  <div className="text-[10px] md:text-xs text-foreground/75 mt-1">
                     {item.label}
                   </div>
                 </div>
@@ -114,7 +122,7 @@ export default function HeroSection() {
             transition={{ duration: 1, delay: 1 }}
             className="mt-16"
           >
-            <div className="inline-flex items-center space-x-2 text-muted-foreground">
+            <div className="inline-flex items-center space-x-2 text-foreground/80">
               <div className="w-6 h-6 border-2 border-primary rounded-full flex items-center justify-center">
                 <div className="w-2 h-2 bg-primary rounded-full animate-float" />
               </div>

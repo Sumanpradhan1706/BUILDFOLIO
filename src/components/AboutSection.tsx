@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { Code2, Palette, Trophy } from 'lucide-react';
-import portfolioImage from '@/assets/portfolio-workspace.jpg';
+import coverImage from '@/assets/cover image of BuildFolio.jpg';
 
 export default function AboutSection() {
   const ref = useRef(null);
@@ -40,8 +40,8 @@ export default function AboutSection() {
             <h2 className="text-4xl md:text-6xl font-bold mb-6 glow-neon">
               About <span className="gradient-text">Buildfolio</span>
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              A <span className="text-primary font-semibold">36-hour portfolio crafting challenge</span> where innovation meets design. 
+            <p className="text-xl text-foreground/90 max-w-3xl mx-auto leading-relaxed">
+              A <span className="text-primary font-semibold">36-hour portfolio crafting challenge</span> where innovation meets design.
               TechVerse invites developers and designers to showcase their creativity and build something extraordinary.
             </p>
           </div>
@@ -56,20 +56,20 @@ export default function AboutSection() {
             <div className="relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-primary to-primary/50 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000"></div>
               <img
-                src={portfolioImage}
-                alt="Portfolio crafting workspace"
+                src={coverImage}
+                alt="BuildFolio cover illustration"
                 className="relative rounded-2xl w-full h-auto object-cover border-2 border-primary/30 group-hover:border-primary transition-all duration-300"
               />
             </div>
             <div className="space-y-6">
               <h3 className="text-3xl font-bold">Craft Your Digital Masterpiece</h3>
-              <p className="text-muted-foreground leading-relaxed text-lg">
-                Buildfolio is more than just a competition—it's a journey into the art of portfolio creation. 
-                Whether you're a seasoned developer or just starting out, this challenge pushes you to showcase 
+              <p className="text-foreground/95 leading-relaxed text-lg">
+                Buildfolio is more than just a competition—it's a journey into the art of portfolio creation.
+                Whether you're a seasoned developer or just starting out, this challenge pushes you to showcase
                 your best work in a stunning, professional portfolio.
               </p>
-              <p className="text-muted-foreground leading-relaxed text-lg">
-                Over 36 hours, you'll have the opportunity to design, develop, and deploy a portfolio that 
+              <p className="text-foreground/85 leading-relaxed text-lg">
+                Over 36 hours, you'll have the opportunity to design, develop, and deploy a portfolio that
                 truly represents your skills and personality. Join hundreds of creators in this exciting challenge!
               </p>
             </div>
@@ -88,7 +88,7 @@ export default function AboutSection() {
                   <feature.icon className="text-primary" size={32} />
                 </div>
                 <h3 className="text-2xl font-bold mb-4">{feature.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="text-foreground/80 leading-relaxed">
                   {feature.description}
                 </p>
               </motion.div>
@@ -104,7 +104,7 @@ export default function AboutSection() {
             <h3 className="text-2xl md:text-3xl font-bold mb-6 text-center">
               Why Participate?
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-muted-foreground">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-foreground/80">
               <div className="flex items-start space-x-3">
                 <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
                 <p>Learn from industry professionals and expand your skill set</p>

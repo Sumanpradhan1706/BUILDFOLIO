@@ -1,5 +1,5 @@
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Sphere, MeshDistortMaterial, Stars } from '@react-three/drei';
+import { OrbitControls, Sphere, MeshDistortMaterial, Stars, Line } from '@react-three/drei';
 import { useRef, useMemo } from 'react';
 import * as THREE from 'three';
 
@@ -62,7 +62,7 @@ function FloatingRings() {
 
 function Particles() {
   const pointsRef = useRef<THREE.Points>(null);
-  
+
   const particlesPosition = useMemo(() => {
     const positions = new Float32Array(2000 * 3);
     for (let i = 0; i < 2000; i++) {
@@ -128,29 +128,123 @@ function GlowingSpheres() {
   );
 }
 
+function TechGrid() {
+  const materialRef = useRef<THREE.MeshBasicMaterial>(null);
+
+  useFrame((state) => {
+    if (materialRef.current) {
+      materialRef.current.opacity = 0.08 + Math.sin(state.clock.getElapsedTime() * 0.6) * 0.015;
+    }
+  });
+
+  return (
+    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -4.5, 0]}>
+      <planeGeometry args={[80, 80, 80, 80]} />
+      <meshBasicMaterial
+        ref={materialRef}
+        color="#00C6FF"
+        wireframe
+        transparent
+        opacity={0.1}
+      />
+    </mesh>
+  );
+}
+
+function NetworkMatrix() {
+  const groupRef = useRef<THREE.Group>(null);
+  const nodes = useMemo<([number, number, number])[]>(
+    () => [
+      [-4, 1.5, -2],
+      [0, 2.5, -3.5],
+      [4, 1, -1],
+      [-2, -1, -4],
+      [2, -2, -3],
+      [0, 0.5, -1],
+      [-3.5, -2.5, -2.5],
+      [3.5, -1, -4.5],
+    ],
+    [],
+  );
+
+  const connections: [number, number][] = useMemo(
+    () => [
+      [0, 1],
+      [1, 2],
+      [0, 5],
+      [5, 2],
+      [3, 4],
+      [4, 7],
+      [3, 6],
+      [6, 5],
+      [5, 4],
+    ],
+    [],
+  );
+
+  useFrame((state) => {
+    if (groupRef.current) {
+      groupRef.current.rotation.y = Math.sin(state.clock.getElapsedTime() * 0.2) * 0.2;
+      groupRef.current.rotation.x = Math.cos(state.clock.getElapsedTime() * 0.15) * 0.1;
+    }
+  });
+
+  return (
+    <group ref={groupRef} position={[0, 0, -2]}>
+      {nodes.map((pos, index) => (
+        <mesh key={`node-${index}`} position={pos}>
+          <icosahedronGeometry args={[0.25, 0]} />
+          <meshStandardMaterial
+            color="#00F5FF"
+            emissive="#00F5FF"
+            emissiveIntensity={1.2}
+            metalness={0.7}
+            roughness={0.2}
+          />
+        </mesh>
+      ))}
+      {connections.map(([from, to], index) => (
+        <Line
+          key={`connection-${index}`}
+          points={[nodes[from], nodes[to]]}
+          color="#00D1FF"
+          lineWidth={1}
+          transparent
+          opacity={0.4}
+          dashed
+          dashSize={0.25}
+          gapSize={0.15}
+        />
+      ))}
+    </group>
+  );
+}
+
 export default function ThreeBackground() {
   return (
     <div className="fixed inset-0 -z-10">
       <Canvas camera={{ position: [0, 0, 8], fov: 75 }}>
         <color attach="background" args={['#0A0A12']} />
         <fog attach="fog" args={['#0A0A12', 5, 25]} />
-        
+
         <ambientLight intensity={0.3} />
         <pointLight position={[10, 10, 10]} intensity={1.5} color="#00C6FF" />
         <pointLight position={[-10, -10, -10]} intensity={1} color="#00C6FF" />
         <pointLight position={[0, 5, 5]} intensity={0.8} color="#0099FF" />
         <spotLight position={[0, 10, 0]} intensity={1.5} color="#00C6FF" angle={0.3} penumbra={1} />
-        
+
         <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
-        
+
         <AnimatedSphere position={[-3, 2, 0]} scale={1.2} />
         <AnimatedSphere position={[3, -2, -2]} scale={1} />
         <AnimatedSphere position={[0, 0, -4]} scale={0.8} />
-        
+
         <FloatingRings />
         <Particles />
         <GlowingSpheres />
-        
+        <NetworkMatrix />
+        <TechGrid />
+
         <OrbitControls
           enableZoom={false}
           enablePan={false}

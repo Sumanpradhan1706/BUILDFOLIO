@@ -54,7 +54,7 @@ export default function FAQSection() {
             <h2 className="text-4xl md:text-6xl font-bold mb-6 glow-neon">
               Frequently Asked <span className="gradient-text">Questions</span>
             </h2>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-xl text-foreground/85">
               Got questions? We've got answers!
             </p>
           </div>
@@ -71,7 +71,7 @@ export default function FAQSection() {
                   <AccordionTrigger className="text-left hover:text-primary transition-colors">
                     <span className="font-semibold text-lg">{faq.question}</span>
                   </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground leading-relaxed">
+                  <AccordionContent className="text-foreground/80 leading-relaxed">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>

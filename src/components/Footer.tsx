@@ -1,4 +1,4 @@
-import { Github, Twitter, Linkedin, Mail } from 'lucide-react';
+import { Twitter, Linkedin, Instagram, Mail, Phone } from 'lucide-react';
 import logo from '@/assets/logo.jpg';
 
 export default function Footer() {
@@ -21,7 +21,7 @@ export default function Footer() {
                     BUILDFOLIO
                   </span>
                 </div>
-                <p className="text-muted-foreground text-sm leading-relaxed mt-3 max-w-md">
+                <p className="text-foreground/80 text-sm leading-relaxed mt-3 max-w-md">
                   Empowering developers and designers to showcase their talent through innovative challenges and community events.
                 </p>
               </div>
@@ -32,22 +32,22 @@ export default function Footer() {
               <h3 className="text-lg font-bold mb-4">Quick Links</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#home" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="#home" className="text-foreground/80 hover:text-primary transition-colors">
                     Home
                   </a>
                 </li>
                 <li>
-                  <a href="#about" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="#about" className="text-foreground/80 hover:text-primary transition-colors">
                     About
                   </a>
                 </li>
                 <li>
-                  <a href="#timeline" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="#timeline" className="text-foreground/80 hover:text-primary transition-colors">
                     Timeline
                   </a>
                 </li>
                 <li>
-                  <a href="#judges" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="#judges" className="text-foreground/80 hover:text-primary transition-colors">
                     Judges
                   </a>
                 </li>
@@ -58,7 +58,7 @@ export default function Footer() {
             <div>
               <h3 className="text-lg font-bold mb-4">Contact Us</h3>
               <div className="space-y-3">
-                <div className="flex items-center space-x-2 text-muted-foreground">
+                <div className="flex items-center space-x-2 text-foreground/80">
                   <Mail size={18} className="text-primary" />
                   <a
                     href="mailto:techversecommunity7@gmail.com"
@@ -67,22 +67,34 @@ export default function Footer() {
                     techversecommunity7@gmail.com
                   </a>
                 </div>
+                <div className="flex items-center space-x-2 text-foreground/80">
+                  <Phone size={18} className="text-primary" />
+                  <a href="tel:9339982624" className="hover:text-primary transition-colors text-sm">
+                    Soumen Das — 9339982624
+                  </a>
+                </div>
                 <div className="flex space-x-4 pt-2">
                   <a
-                    href="#"
+                    href="https://x.com/wearetechverse"
                     className="w-10 h-10 bg-glass rounded-lg flex items-center justify-center hover-glow"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     <Twitter size={20} className="text-primary" />
                   </a>
                   <a
-                    href="#"
+                    href="https://www.instagram.com/wearetechverse/"
                     className="w-10 h-10 bg-glass rounded-lg flex items-center justify-center hover-glow"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    <Github size={20} className="text-primary" />
+                    <Instagram size={20} className="text-primary" />
                   </a>
                   <a
-                    href="#"
+                    href="https://www.linkedin.com/company/techversecommunity/about/?viewAsMember=true"
                     className="w-10 h-10 bg-glass rounded-lg flex items-center justify-center hover-glow"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     <Linkedin size={20} className="text-primary" />
                   </a>
@@ -93,7 +105,7 @@ export default function Footer() {
 
           {/* Copyright */}
           <div className="pt-8 border-t border-border/30 text-center">
-            <p className="text-muted-foreground text-sm">
+            <p className="text-foreground/80 text-sm">
               © 2025 TechVerse Community. All rights reserved. Built with{' '}
               <span className="text-primary">❤</span> for the community.
             </p>

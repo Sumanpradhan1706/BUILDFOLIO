@@ -24,7 +24,7 @@ All colors MUST be HSL.
     --secondary-foreground: 210 40% 98%;
 
     --muted: 217 32% 17%;
-    --muted-foreground: 215 20% 65%;
+    --muted-foreground: 210 40% 88%;
 
     --accent: 195 100% 50%;
     --accent-foreground: 220 30% 5%;
@@ -37,17 +37,17 @@ All colors MUST be HSL.
     --ring: 195 100% 50%;
 
     --radius: 0.75rem;
-    
+
     --neon-blue: 195 100% 50%;
     --neon-glow: 195 100% 65%;
     --dark-space: 220 30% 5%;
     --space-deep: 225 30% 7%;
-    
+
     --gradient-primary: linear-gradient(135deg, hsl(220 30% 5%), hsl(225 30% 7%));
     --gradient-neon: linear-gradient(90deg, hsl(195 100% 50%), hsl(195 100% 65%));
     --shadow-neon: 0 0 30px hsl(195 100% 50% / 0.5);
     --shadow-glow: 0 0 60px hsl(195 100% 50% / 0.3);
-    
+
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
@@ -84,9 +84,18 @@ All colors MUST be HSL.
     background: linear-gradient(135deg, hsl(220 30% 5%), hsl(225 30% 7%));
     min-height: 100vh;
   }
-  
-  h1, h2, h3, h4, h5, h6 {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-orbitron;
+  }
+
+  p {
+    color: hsl(var(--foreground) / 0.9);
   }
 }
 
@@ -94,33 +103,33 @@ All colors MUST be HSL.
   .text-neon {
     @apply text-primary;
   }
-  
+
   .glow-neon {
     text-shadow: 0 0 10px hsl(var(--neon-blue)),
-                 0 0 20px hsl(var(--neon-blue)),
-                 0 0 30px hsl(var(--neon-blue));
+      0 0 20px hsl(var(--neon-blue)),
+      0 0 30px hsl(var(--neon-blue));
   }
-  
+
   .border-neon {
     border-color: hsl(var(--neon-blue));
     box-shadow: 0 0 10px hsl(var(--neon-blue) / 0.5);
   }
-  
+
   .bg-glass {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
-  
+
   .hover-glow {
     transition: var(--transition-smooth);
   }
-  
+
   .hover-glow:hover {
     box-shadow: var(--shadow-neon);
     transform: translateY(-2px);
   }
-  
+
   .gradient-text {
     background: var(--gradient-neon);
     -webkit-background-clip: text;

@@ -41,9 +41,48 @@ const judges = [
   },
 ];
 
+const FEATURED_COUNT = 3;
+
 export default function JudgesSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const featuredJudges = judges.slice(0, FEATURED_COUNT);
+  const guestJudges = judges.slice(FEATURED_COUNT);
+
+  const renderJudgeCard = (judge: (typeof judges)[number], index: number) => (
+    <motion.div
+      key={judge.name}
+      initial={{ opacity: 0, y: 50, rotateY: -20 }}
+      animate={isInView ? { opacity: 1, y: 0, rotateY: 0 } : {}}
+      transition={{ duration: 0.8, delay: index * 0.2 }}
+      className="bg-glass p-6 md:p-8 rounded-2xl hover-glow group perspective-1000 shadow-lg w-full md:w-72 mx-auto"
+    >
+      <div className="relative mb-8 overflow-hidden rounded-xl border-2 border-primary/30 group-hover:border-primary transition-all duration-300">
+        {judge.image ? (
+          <img
+            src={judge.image}
+            alt={judge.name}
+            className="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-500"
+          />
+        ) : (
+          <div className="w-full aspect-square bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+            {/* blank placeholder for now */}
+          </div>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+          <a
+            href={judge.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-primary hover:bg-primary/90 text-primary-foreground p-3 rounded-full hover-glow"
+          >
+            <Linkedin size={22} />
+          </a>
+        </div>
+      </div>
+      <h3 className="text-xl font-bold text-center">{judge.name}</h3>
+    </motion.div>
+  );
 
   return (
     <section id="judges" className="relative py-24 md:py-32">
@@ -59,48 +98,19 @@ export default function JudgesSection() {
             <h2 className="text-4xl md:text-6xl font-bold mb-6 glow-neon">
               Meet the <span className="gradient-text">Judges</span>
             </h2>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-xl text-foreground/85">
               Industry experts who will evaluate your amazing work
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-            {judges.map((judge, index) => (
-              <motion.div
-                key={judge.name}
-                initial={{ opacity: 0, y: 50, rotateY: -20 }}
-                animate={isInView ? { opacity: 1, y: 0, rotateY: 0 } : {}}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
-                className="bg-glass p-4 rounded-lg hover-glow group perspective-1000"
-              >
-                <div className="relative mb-6 overflow-hidden rounded-lg border-2 border-primary/30 group-hover:border-primary transition-all duration-300">
-                  {judge.image ? (
-                    <img
-                      src={judge.image}
-                      alt={judge.name}
-                      className="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                  ) : (
-                    <div className="w-full aspect-square bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-                      {/* blank placeholder for now */}
-                    </div>
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
-                    <a
-                      href={judge.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-primary hover:bg-primary/90 text-primary-foreground p-3 rounded-full hover-glow"
-                    >
-                      <Linkedin size={20} />
-                    </a>
-                  </div>
-                </div>
-                <h3 className="text-lg font-bold mb-1">{judge.name}</h3>
-                <p className="text-sm text-primary font-semibold mb-1">{judge.title}</p>
-                <p className="text-sm text-muted-foreground">{judge.company}</p>
-              </motion.div>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {featuredJudges.map((judge, index) => renderJudgeCard(judge, index))}
+
+            {guestJudges.length > 0 && (
+              <div className="md:col-span-3 flex flex-col items-center gap-8 md:flex-row md:justify-center">
+                {guestJudges.map((judge, index) => renderJudgeCard(judge, FEATURED_COUNT + index))}
+              </div>
+            )}
           </div>
         </motion.div>
       </div>

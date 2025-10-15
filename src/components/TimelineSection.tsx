@@ -1,35 +1,49 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Calendar, Send, Award, Users } from 'lucide-react';
+import { Calendar, Clock, Rocket, Upload, Monitor, Award } from 'lucide-react';
 
 const timelineEvents = [
   {
     icon: Calendar,
-    title: 'Registration Opens',
-    date: '1st Nov 2025',
-    description: 'Sign up and start preparing your portfolio for submission',
+    title: 'Applications Open',
+    date: '16 Oct 2025 · 00:00',
+    description: 'Registration goes live at midnight—lock in your team and start planning.',
     side: 'right',
   },
   {
-    icon: Send,
-    title: 'Submission Deadline',
-    date: '15th Nov 2025',
-    description: 'Final day to submit your portfolio',
+    icon: Clock,
+    title: 'Applications Close',
+    date: '10 Nov 2025 · 23:59',
+    description: 'Last chance to register before the portal closes for new entries.',
     side: 'left',
   },
   {
-    icon: Users,
-    title: 'Judging Round',
-    date: '18-20th Nov 2025',
-    description: 'Expert judges evaluate all submissions based on creativity and execution',
+    icon: Rocket,
+    title: 'Hackathon Begins',
+    date: '15 Nov 2025 · 00:00',
+    description: 'Kick off the 36-hour build sprint and bring your portfolio vision to life.',
+    side: 'right',
+  },
+  {
+    icon: Upload,
+    title: 'Submission Deadline',
+    date: '16 Nov 2025 · 12:00',
+    description: 'Submit your final portfolio build before noon to be eligible for judging.',
+    side: 'left',
+  },
+  {
+    icon: Monitor,
+    title: 'Judging (Online)',
+    date: '16 Nov 2025 · 19:00',
+    description: 'Judges convene virtually to review submissions and select the winners.',
     side: 'right',
   },
   {
     icon: Award,
-    title: 'Winner Announcement',
-    date: '22nd Nov 2025',
-    description: 'Winners revealed! Celebrate with the community and claim your prizes',
+    title: 'Results Announced',
+    date: '16 Nov 2025 · 23:00',
+    description: 'Tune in for the closing ceremony as we reveal the winners and special mentions.',
     side: 'left',
   },
 ];
@@ -52,7 +66,7 @@ export default function TimelineSection() {
             <h2 className="text-4xl md:text-6xl font-bold mb-6">
               Competition <span className="gradient-text">Timeline</span>
             </h2>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-xl text-foreground/85">
               Mark your calendar and stay on track with our competition schedule
             </p>
           </div>
@@ -68,11 +82,10 @@ export default function TimelineSection() {
                   initial={{ opacity: 0, x: event.side === 'left' ? -50 : 50 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.8, delay: index * 0.2 }}
-                  className={`relative flex items-center ${
-                    event.side === 'left'
-                      ? 'md:flex-row-reverse'
-                      : 'md:flex-row'
-                  } flex-col md:gap-8`}
+                  className={`relative flex items-center ${event.side === 'left'
+                    ? 'md:flex-row-reverse'
+                    : 'md:flex-row'
+                    } flex-col md:gap-8`}
                 >
                   {/* Content Card */}
                   <div className={`w-full md:w-5/12 ${event.side === 'left' ? 'md:text-right' : 'md:text-left'} text-center`}>
@@ -82,7 +95,7 @@ export default function TimelineSection() {
                         <span className="text-primary font-semibold">{event.date}</span>
                       </div>
                       <h3 className="text-2xl font-bold mb-3">{event.title}</h3>
-                      <p className="text-muted-foreground leading-relaxed">
+                      <p className="text-foreground/80 leading-relaxed">
                         {event.description}
                       </p>
                     </div>

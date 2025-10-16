@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import logo from '@/assets/logo.jpg';
 
 const navLinks = [
@@ -33,9 +34,8 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-glass shadow-lg' : 'bg-transparent'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-glass shadow-lg' : 'bg-transparent'
+        }`}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
@@ -62,12 +62,13 @@ export default function Navbar() {
           </div>
 
           {/* Register Button */}
-          <Button
-            onClick={() => scrollToSection('#home')}
-            className="hidden md:flex bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-6 hover-glow"
-          >
-            Register Now
-          </Button>
+          <Link to="/register" className="hidden md:block">
+            <Button
+              className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-6 hover-glow"
+            >
+              Register Now
+            </Button>
+          </Link>
 
           {/* Mobile Menu Button */}
           <button
@@ -91,15 +92,14 @@ export default function Navbar() {
                   {link.name}
                 </button>
               ))}
-              <Button
-                onClick={() => {
-                  scrollToSection('#home');
-                  setIsMobileMenuOpen(false);
-                }}
-                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
-              >
-                Register Now
-              </Button>
+              <Link to="/register" className="w-full">
+                <Button
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
+                >
+                  Register Now
+                </Button>
+              </Link>
             </div>
           </div>
         )}

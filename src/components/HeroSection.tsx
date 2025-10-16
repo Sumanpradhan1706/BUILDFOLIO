@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function HeroSection() {
   const [timeLeft, setTimeLeft] = useState({
@@ -108,12 +109,14 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
           >
-            <Button
-              size="lg"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-12 py-6 text-lg hover-glow animate-glow-pulse"
-            >
-              Join the Competition
-            </Button>
+            <Link to="/register">
+              <Button
+                size="lg"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-12 py-6 text-lg hover-glow animate-glow-pulse"
+              >
+                Join the Competition
+              </Button>
+            </Link>
           </motion.div>
 
           <motion.div

@@ -41,8 +41,7 @@ export default function AboutSection() {
               About <span className="gradient-text">Buildfolio</span>
             </h2>
             <p className="text-xl text-foreground/90 max-w-3xl mx-auto leading-relaxed">
-              A <span className="text-primary font-semibold">36-hour portfolio crafting challenge</span> where innovation meets design.
-              TechVerse invites developers and designers to showcase their creativity and build something extraordinary.
+              Get ready to build, flex, and flaunt your creativity — because <span className="text-primary font-semibold">TechVerse</span> is bringing you the most awaited showdown of skills and style: <span className="font-bold"> BuildFolio 2025! </span>
             </p>
           </div>
 
@@ -63,15 +62,23 @@ export default function AboutSection() {
             </div>
             <div className="space-y-6">
               <h3 className="text-3xl font-bold">Craft Your Digital Masterpiece</h3>
-              <p className="text-foreground/95 leading-relaxed text-lg">
-                Buildfolio is more than just a competition—it's a journey into the art of portfolio creation.
-                Whether you're a seasoned developer or just starting out, this challenge pushes you to showcase
-                your best work in a stunning, professional portfolio.
-              </p>
-              <p className="text-foreground/85 leading-relaxed text-lg">
-                Over 36 hours, you'll have the opportunity to design, develop, and deploy a portfolio that
-                truly represents your skills and personality. Join hundreds of creators in this exciting challenge!
-              </p>
+              <div className="text-foreground/95 leading-relaxed text-lg space-y-4">
+                <p>
+                  This isn’t your average portfolio contest — it’s a digital identity battle where design meets code, creativity meets logic, and your imagination gets to steal the spotlight! Whether you’re a developer, designer, innovator, or dreamer, BuildFolio is your chance to turn your journey into a masterpiece.
+                </p>
+
+                <div className="bg-primary/5 border border-primary/10 rounded-lg p-4">
+                  <h4 className="text-sm font-semibold text-primary mb-2">🗓 Event Dates</h4>
+                  <ul className="text-foreground/85 text-sm space-y-1">
+                    <li><strong>Submission Window:</strong> 15th – 16th November (Till 12 PM)</li>
+                    <li><strong>Judging Round:</strong> 16th November, 7 PM (Online Meet)</li>
+                  </ul>
+                </div>
+
+                <p>
+                  Bring your best portfolio — be it a website, project hub, or design showcase — and wow our panel of expert judges. Each portfolio will be reviewed for creativity, content, design, storytelling, and tech skills. And here’s the best part — every participant gets personalized feedback to level up their portfolio game for future opportunities!
+                </p>
+              </div>
             </div>
           </motion.div>
 

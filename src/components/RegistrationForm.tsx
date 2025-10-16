@@ -5,7 +5,7 @@ import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Loader2, CheckCircle2, AlertCircle, Shield, Clock, Mail, Users, MessageCircle, Linkedin, Instagram } from 'lucide-react';
+import { Loader2, CheckCircle2, AlertCircle, Shield, Clock, Mail, Users, MessageCircle, Linkedin, Instagram, Upload } from 'lucide-react';
 import coverImage from '@/assets/cover image of BuildFolio.jpg';
 
 interface FormData {
@@ -19,6 +19,9 @@ interface FormData {
     joinedWhatsApp: boolean;
     followedLinkedIn: boolean;
     followedInstagram: boolean;
+    whatsappScreenshot: File | null;
+    linkedinScreenshot: File | null;
+    instagramScreenshot: File | null;
     termsAccepted: boolean;
 }
 
@@ -31,6 +34,9 @@ interface FormErrors {
     linkedin?: string;
     city?: string;
     socialMedia?: string;
+    whatsappScreenshot?: string;
+    linkedinScreenshot?: string;
+    instagramScreenshot?: string;
     termsAccepted?: string;
 }
 
@@ -46,6 +52,9 @@ export default function RegistrationForm() {
         joinedWhatsApp: false,
         followedLinkedIn: false,
         followedInstagram: false,
+        whatsappScreenshot: null,
+        linkedinScreenshot: null,
+        instagramScreenshot: null,
         termsAccepted: false,
     });
 
@@ -140,6 +149,17 @@ export default function RegistrationForm() {
             newErrors.socialMedia = 'Please complete all social media requirements for better selection chances';
         }
 
+        // Screenshot validation
+        if (!formData.whatsappScreenshot) {
+            newErrors.whatsappScreenshot = 'WhatsApp screenshot is required';
+        }
+        if (!formData.linkedinScreenshot) {
+            newErrors.linkedinScreenshot = 'LinkedIn screenshot is required';
+        }
+        if (!formData.instagramScreenshot) {
+            newErrors.instagramScreenshot = 'Instagram screenshot is required';
+        }
+
         // Terms acceptance validation
         if (!formData.termsAccepted) {
             newErrors.termsAccepted = 'You must accept the terms and conditions to proceed';
@@ -183,8 +203,28 @@ export default function RegistrationForm() {
         setIsSubmitting(true);
 
         try {
+            // Convert files to base64
+            const toBase64 = (file: File): Promise<string> => {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = () => resolve(reader.result as string);
+                    reader.onerror = (error) => reject(error);
+                });
+            };
+
+            const whatsappScreenshotBase64 = formData.whatsappScreenshot
+                ? await toBase64(formData.whatsappScreenshot)
+                : null;
+            const linkedinScreenshotBase64 = formData.linkedinScreenshot
+                ? await toBase64(formData.linkedinScreenshot)
+                : null;
+            const instagramScreenshotBase64 = formData.instagramScreenshot
+                ? await toBase64(formData.instagramScreenshot)
+                : null;
+
             // Replace this URL with your Google Apps Script Web App URL
-            const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxGgikiaBAX8Rp5tpdumFkuY7xge0FxON5tniQbtQZvSUn5sVSFHJQbP8lPlzwqzO42/exec';
+            const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzy5e7D0fg6JAMIxhOCbCyOlr9Ev6l07Q3m1QQjm58pIf6q_rayEp0rxllIbwnbtLMk/exec';
 
             const response = await fetch(GOOGLE_SCRIPT_URL, {
                 method: 'POST',
@@ -200,6 +240,12 @@ export default function RegistrationForm() {
                     github: formData.github,
                     linkedin: formData.linkedin,
                     city: formData.city,
+                    whatsappScreenshot: whatsappScreenshotBase64,
+                    whatsappScreenshotName: formData.whatsappScreenshot?.name,
+                    linkedinScreenshot: linkedinScreenshotBase64,
+                    linkedinScreenshotName: formData.linkedinScreenshot?.name,
+                    instagramScreenshot: instagramScreenshotBase64,
+                    instagramScreenshotName: formData.instagramScreenshot?.name,
                     timestamp: new Date().toISOString(),
                 }),
             });
@@ -227,6 +273,9 @@ export default function RegistrationForm() {
                 joinedWhatsApp: false,
                 followedLinkedIn: false,
                 followedInstagram: false,
+                whatsappScreenshot: null,
+                linkedinScreenshot: null,
+                instagramScreenshot: null,
                 termsAccepted: false,
             });
 
@@ -519,101 +568,212 @@ export default function RegistrationForm() {
                                     </div>
 
                                     {/* WhatsApp Community */}
-                                    <div className="flex items-start space-x-2.5 sm:space-x-3 p-3 sm:p-4 bg-glass rounded-lg border border-primary/20">
-                                        <Checkbox
-                                            id="whatsapp"
-                                            checked={formData.joinedWhatsApp}
-                                            onCheckedChange={(checked) => {
-                                                setFormData((prev) => ({ ...prev, joinedWhatsApp: checked as boolean }));
-                                                if (errors.socialMedia) {
-                                                    setErrors((prev) => ({ ...prev, socialMedia: undefined }));
-                                                }
-                                            }}
-                                            disabled={isSubmitting}
-                                            className={`mt-0.5 sm:mt-1 border-primary/50 data-[state=checked]:bg-primary data-[state=checked]:border-primary ${errors.socialMedia ? 'border-red-500' : ''}`}
-                                        />
-                                        <div className="flex-1 min-w-0">
-                                            <Label
-                                                htmlFor="whatsapp"
-                                                className="text-xs sm:text-sm font-medium leading-relaxed cursor-pointer text-foreground/90 flex items-center gap-2 flex-wrap"
-                                            >
-                                                <MessageCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                                                <span>I have joined the TechVerse WhatsApp Community <span className="text-primary">*</span></span>
+                                    <div className="space-y-3 p-3 sm:p-4 bg-glass rounded-lg border border-primary/20">
+                                        <div className="flex items-start space-x-2.5 sm:space-x-3">
+                                            <Checkbox
+                                                id="whatsapp"
+                                                checked={formData.joinedWhatsApp}
+                                                onCheckedChange={(checked) => {
+                                                    setFormData((prev) => ({ ...prev, joinedWhatsApp: checked as boolean }));
+                                                    if (errors.socialMedia) {
+                                                        setErrors((prev) => ({ ...prev, socialMedia: undefined }));
+                                                    }
+                                                }}
+                                                disabled={isSubmitting}
+                                                className={`mt-0.5 sm:mt-1 border-primary/50 data-[state=checked]:bg-primary data-[state=checked]:border-primary ${errors.socialMedia ? 'border-red-500' : ''}`}
+                                            />
+                                            <div className="flex-1 min-w-0">
+                                                <Label
+                                                    htmlFor="whatsapp"
+                                                    className="text-xs sm:text-sm font-medium leading-relaxed cursor-pointer text-foreground/90 flex items-center gap-2 flex-wrap"
+                                                >
+                                                    <MessageCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+                                                    <span>I have joined the TechVerse WhatsApp Community <span className="text-primary">*</span></span>
+                                                </Label>
+                                                <a
+                                                    href="https://chat.whatsapp.com/DRBBLzTOMndAEaf7e9Ddq9"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="inline-block mt-2 text-xs sm:text-sm text-primary hover:text-primary/80 underline hover:no-underline transition-all"
+                                                >
+                                                    Click here to join WhatsApp Community →
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        {/* WhatsApp Screenshot Upload */}
+                                        <div className="space-y-2 pl-0 sm:pl-7">
+                                            <Label htmlFor="whatsappScreenshot" className="text-xs sm:text-sm font-medium text-foreground/90">
+                                                Upload Screenshot Proof <span className="text-primary">*</span>
                                             </Label>
-                                            <a
-                                                href="https://chat.whatsapp.com/DRBBLzTOMndAEaf7e9Ddq9"
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="inline-block mt-2 text-xs sm:text-sm text-primary hover:text-primary/80 underline hover:no-underline transition-all"
-                                            >
-                                                Click here to join WhatsApp Community →
-                                            </a>
+                                            <div className="relative">
+                                                <Input
+                                                    id="whatsappScreenshot"
+                                                    type="file"
+                                                    accept="image/*"
+                                                    onChange={(e) => {
+                                                        const file = e.target.files?.[0] || null;
+                                                        setFormData((prev) => ({ ...prev, whatsappScreenshot: file }));
+                                                        if (errors.whatsappScreenshot) {
+                                                            setErrors((prev) => ({ ...prev, whatsappScreenshot: undefined }));
+                                                        }
+                                                    }}
+                                                    disabled={isSubmitting}
+                                                    className={`text-xs sm:text-sm bg-glass border-primary/30 text-foreground file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-primary/20 file:text-primary hover:file:bg-primary/30 ${errors.whatsappScreenshot ? 'border-red-500' : ''}`}
+                                                />
+                                                {formData.whatsappScreenshot && (
+                                                    <p className="text-xs text-green-500 mt-1 flex items-center gap-1">
+                                                        <CheckCircle2 className="w-3 h-3" />
+                                                        {formData.whatsappScreenshot.name}
+                                                    </p>
+                                                )}
+                                            </div>
+                                            {errors.whatsappScreenshot && (
+                                                <p className="text-xs text-red-400 flex items-center gap-1">
+                                                    <AlertCircle className="w-3 h-3" />
+                                                    {errors.whatsappScreenshot}
+                                                </p>
+                                            )}
                                         </div>
                                     </div>
 
                                     {/* LinkedIn Page */}
-                                    <div className="flex items-start space-x-2.5 sm:space-x-3 p-3 sm:p-4 bg-glass rounded-lg border border-primary/20">
-                                        <Checkbox
-                                            id="linkedinFollow"
-                                            checked={formData.followedLinkedIn}
-                                            onCheckedChange={(checked) => {
-                                                setFormData((prev) => ({ ...prev, followedLinkedIn: checked as boolean }));
-                                                if (errors.socialMedia) {
-                                                    setErrors((prev) => ({ ...prev, socialMedia: undefined }));
-                                                }
-                                            }}
-                                            disabled={isSubmitting}
-                                            className={`mt-0.5 sm:mt-1 border-primary/50 data-[state=checked]:bg-primary data-[state=checked]:border-primary ${errors.socialMedia ? 'border-red-500' : ''}`}
-                                        />
-                                        <div className="flex-1 min-w-0">
-                                            <Label
-                                                htmlFor="linkedinFollow"
-                                                className="text-xs sm:text-sm font-medium leading-relaxed cursor-pointer text-foreground/90 flex items-center gap-2 flex-wrap"
-                                            >
-                                                <Linkedin className="w-4 h-4 text-blue-500 flex-shrink-0" />
-                                                <span>I follow TechVerse on LinkedIn <span className="text-primary">*</span></span>
+                                    <div className="space-y-3 p-3 sm:p-4 bg-glass rounded-lg border border-primary/20">
+                                        <div className="flex items-start space-x-2.5 sm:space-x-3">
+                                            <Checkbox
+                                                id="linkedinFollow"
+                                                checked={formData.followedLinkedIn}
+                                                onCheckedChange={(checked) => {
+                                                    setFormData((prev) => ({ ...prev, followedLinkedIn: checked as boolean }));
+                                                    if (errors.socialMedia) {
+                                                        setErrors((prev) => ({ ...prev, socialMedia: undefined }));
+                                                    }
+                                                }}
+                                                disabled={isSubmitting}
+                                                className={`mt-0.5 sm:mt-1 border-primary/50 data-[state=checked]:bg-primary data-[state=checked]:border-primary ${errors.socialMedia ? 'border-red-500' : ''}`}
+                                            />
+                                            <div className="flex-1 min-w-0">
+                                                <Label
+                                                    htmlFor="linkedinFollow"
+                                                    className="text-xs sm:text-sm font-medium leading-relaxed cursor-pointer text-foreground/90 flex items-center gap-2 flex-wrap"
+                                                >
+                                                    <Linkedin className="w-4 h-4 text-blue-500 flex-shrink-0" />
+                                                    <span>I follow TechVerse on LinkedIn <span className="text-primary">*</span></span>
+                                                </Label>
+                                                <a
+                                                    href="https://www.linkedin.com/company/techversecommunity/about/?viewAsMember=true"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="inline-block mt-2 text-xs sm:text-sm text-primary hover:text-primary/80 underline hover:no-underline transition-all"
+                                                >
+                                                    Click here to follow on LinkedIn →
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        {/* LinkedIn Screenshot Upload */}
+                                        <div className="space-y-2 pl-0 sm:pl-7">
+                                            <Label htmlFor="linkedinScreenshot" className="text-xs sm:text-sm font-medium text-foreground/90">
+                                                Upload Screenshot Proof <span className="text-primary">*</span>
                                             </Label>
-                                            <a
-                                                href="https://www.linkedin.com/company/techversecommunity/about/?viewAsMember=true"
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="inline-block mt-2 text-xs sm:text-sm text-primary hover:text-primary/80 underline hover:no-underline transition-all"
-                                            >
-                                                Click here to follow on LinkedIn →
-                                            </a>
+                                            <div className="relative">
+                                                <Input
+                                                    id="linkedinScreenshot"
+                                                    type="file"
+                                                    accept="image/*"
+                                                    onChange={(e) => {
+                                                        const file = e.target.files?.[0] || null;
+                                                        setFormData((prev) => ({ ...prev, linkedinScreenshot: file }));
+                                                        if (errors.linkedinScreenshot) {
+                                                            setErrors((prev) => ({ ...prev, linkedinScreenshot: undefined }));
+                                                        }
+                                                    }}
+                                                    disabled={isSubmitting}
+                                                    className={`text-xs sm:text-sm bg-glass border-primary/30 text-foreground file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-primary/20 file:text-primary hover:file:bg-primary/30 ${errors.linkedinScreenshot ? 'border-red-500' : ''}`}
+                                                />
+                                                {formData.linkedinScreenshot && (
+                                                    <p className="text-xs text-green-500 mt-1 flex items-center gap-1">
+                                                        <CheckCircle2 className="w-3 h-3" />
+                                                        {formData.linkedinScreenshot.name}
+                                                    </p>
+                                                )}
+                                            </div>
+                                            {errors.linkedinScreenshot && (
+                                                <p className="text-xs text-red-400 flex items-center gap-1">
+                                                    <AlertCircle className="w-3 h-3" />
+                                                    {errors.linkedinScreenshot}
+                                                </p>
+                                            )}
                                         </div>
                                     </div>
 
                                     {/* Instagram Page */}
-                                    <div className="flex items-start space-x-2.5 sm:space-x-3 p-3 sm:p-4 bg-glass rounded-lg border border-primary/20">
-                                        <Checkbox
-                                            id="instagramFollow"
-                                            checked={formData.followedInstagram}
-                                            onCheckedChange={(checked) => {
-                                                setFormData((prev) => ({ ...prev, followedInstagram: checked as boolean }));
-                                                if (errors.socialMedia) {
-                                                    setErrors((prev) => ({ ...prev, socialMedia: undefined }));
-                                                }
-                                            }}
-                                            disabled={isSubmitting}
-                                            className={`mt-0.5 sm:mt-1 border-primary/50 data-[state=checked]:bg-primary data-[state=checked]:border-primary ${errors.socialMedia ? 'border-red-500' : ''}`}
-                                        />
-                                        <div className="flex-1 min-w-0">
-                                            <Label
-                                                htmlFor="instagramFollow"
-                                                className="text-xs sm:text-sm font-medium leading-relaxed cursor-pointer text-foreground/90 flex items-center gap-2 flex-wrap"
-                                            >
-                                                <Instagram className="w-4 h-4 text-pink-500 flex-shrink-0" />
-                                                <span>I follow TechVerse on Instagram <span className="text-primary">*</span></span>
+                                    <div className="space-y-3 p-3 sm:p-4 bg-glass rounded-lg border border-primary/20">
+                                        <div className="flex items-start space-x-2.5 sm:space-x-3">
+                                            <Checkbox
+                                                id="instagramFollow"
+                                                checked={formData.followedInstagram}
+                                                onCheckedChange={(checked) => {
+                                                    setFormData((prev) => ({ ...prev, followedInstagram: checked as boolean }));
+                                                    if (errors.socialMedia) {
+                                                        setErrors((prev) => ({ ...prev, socialMedia: undefined }));
+                                                    }
+                                                }}
+                                                disabled={isSubmitting}
+                                                className={`mt-0.5 sm:mt-1 border-primary/50 data-[state=checked]:bg-primary data-[state=checked]:border-primary ${errors.socialMedia ? 'border-red-500' : ''}`}
+                                            />
+                                            <div className="flex-1 min-w-0">
+                                                <Label
+                                                    htmlFor="instagramFollow"
+                                                    className="text-xs sm:text-sm font-medium leading-relaxed cursor-pointer text-foreground/90 flex items-center gap-2 flex-wrap"
+                                                >
+                                                    <Instagram className="w-4 h-4 text-pink-500 flex-shrink-0" />
+                                                    <span>I follow TechVerse on Instagram <span className="text-primary">*</span></span>
+                                                </Label>
+                                                <a
+                                                    href="https://www.instagram.com/wearetechverse/"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="inline-block mt-2 text-xs sm:text-sm text-primary hover:text-primary/80 underline hover:no-underline transition-all"
+                                                >
+                                                    Click here to follow on Instagram →
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        {/* Instagram Screenshot Upload */}
+                                        <div className="space-y-2 pl-0 sm:pl-7">
+                                            <Label htmlFor="instagramScreenshot" className="text-xs sm:text-sm font-medium text-foreground/90">
+                                                Upload Screenshot Proof <span className="text-primary">*</span>
                                             </Label>
-                                            <a
-                                                href="https://www.instagram.com/wearetechverse/"
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="inline-block mt-2 text-xs sm:text-sm text-primary hover:text-primary/80 underline hover:no-underline transition-all"
-                                            >
-                                                Click here to follow on Instagram →
-                                            </a>
+                                            <div className="relative">
+                                                <Input
+                                                    id="instagramScreenshot"
+                                                    type="file"
+                                                    accept="image/*"
+                                                    onChange={(e) => {
+                                                        const file = e.target.files?.[0] || null;
+                                                        setFormData((prev) => ({ ...prev, instagramScreenshot: file }));
+                                                        if (errors.instagramScreenshot) {
+                                                            setErrors((prev) => ({ ...prev, instagramScreenshot: undefined }));
+                                                        }
+                                                    }}
+                                                    disabled={isSubmitting}
+                                                    className={`text-xs sm:text-sm bg-glass border-primary/30 text-foreground file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-primary/20 file:text-primary hover:file:bg-primary/30 ${errors.instagramScreenshot ? 'border-red-500' : ''}`}
+                                                />
+                                                {formData.instagramScreenshot && (
+                                                    <p className="text-xs text-green-500 mt-1 flex items-center gap-1">
+                                                        <CheckCircle2 className="w-3 h-3" />
+                                                        {formData.instagramScreenshot.name}
+                                                    </p>
+                                                )}
+                                            </div>
+                                            {errors.instagramScreenshot && (
+                                                <p className="text-xs text-red-400 flex items-center gap-1">
+                                                    <AlertCircle className="w-3 h-3" />
+                                                    {errors.instagramScreenshot}
+                                                </p>
+                                            )}
                                         </div>
                                     </div>
 

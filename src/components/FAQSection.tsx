@@ -10,14 +10,19 @@ import {
 
 const faqs = [
   {
-    question: 'Who can participate in Buildfolio?',
+    question: 'Who can participate?',
     answer:
       'Buildfolio is open to all developers and designers, regardless of experience level. Whether you\'re a student, professional, or hobbyist, we welcome your creativity and passion.',
   },
   {
-    question: 'Is there a registration fee?',
+    question: 'Is there any registration fee?',
     answer:
-      'No! Buildfolio is completely free to participate. We believe in making opportunities accessible to everyone in the tech community.',
+      'No, participation is free!',
+  },
+  {
+    question: 'Can I participate individually or in a team?',
+    answer:
+      'This is an individual competition.',
   },
   {
     question: 'How do I submit my portfolio?',
@@ -25,14 +30,19 @@ const faqs = [
       'Once you register, you\'ll receive detailed submission guidelines via email. You can submit your portfolio through our online portal by the deadline on November 15th, 2025.',
   },
   {
-    question: 'How will judging work?',
+    question: 'Can I use platforms like GitHub, Behance, Notion, or Canva?',
     answer:
-      'Our expert panel will evaluate submissions based on creativity, technical execution, design quality, and overall impact. Judging will take place from November 18-20, 2025.',
+      'Yes! You can use any platform that best represents your work and skills.',
   },
   {
-    question: 'What are the prizes?',
+    question: 'What is TechVerse?',
     answer:
-      'Winners will receive certificates, swag, mentorship opportunities, and exciting tech prizes. Detailed prize information will be announced closer to the event date.',
+      'A cosmic community where developers, designers and tech enthusiasts unite to build the future. Connect, learn, and create amazing projects together.',
+  },
+  {
+    question: 'What are the rewards for the winners?',
+    answer:
+      'Winners will receive exciting swags as a token of appreciation for their creativity and effort. Certificates will also be given to all the performers!',
   },
 ];
 

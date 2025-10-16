@@ -73,6 +73,12 @@ export default function Footer() {
                     Soumen Das — 9339982624
                   </a>
                 </div>
+                <div className="flex items-center space-x-2 text-foreground/80">
+                  <Phone size={18} className="text-primary" />
+                  <a href="tel:7365855004" className="hover:text-primary transition-colors text-sm">
+                    Souvik Mandal — 7365855004
+                  </a>
+                </div>
                 <div className="flex space-x-4 pt-2">
                   <a
                     href="https://x.com/wearetechverse"

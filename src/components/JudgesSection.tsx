@@ -5,40 +5,16 @@ import { Linkedin } from 'lucide-react';
 
 const judges = [
   {
-    name: 'Suman Pradhan',
-    title: 'Frontend Developer',
-    company: 'TechVerse',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop',
-    linkedin: '#',
+    name: 'Rohit Debnath',
+    image: 'https://res.cloudinary.com/dczuivjqz/image/upload/v1760717989/Rohit_Debnath_xngstq.jpg',
+    linkedin: 'https://www.linkedin.com/in/rohit-debnath/',
   },
   {
-    name: 'Ananya Sharma',
-    title: 'UI/UX Designer',
-    company: 'Google',
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
-    linkedin: '#',
+    name: 'Akash Nath',
+    image: 'https://res.cloudinary.com/dczuivjqz/image/upload/v1760717987/Akash_Nath_qdsmvm.jpg',
+    linkedin: 'https://www.linkedin.com/in/akash-nath29',
   },
-  {
-    name: 'Rahul Mehta',
-    title: 'Software Engineer',
-    company: 'Microsoft',
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop',
-    linkedin: '#',
-  },
-  {
-    name: 'Guest Judge 1',
-    title: 'TBD',
-    company: '',
-    image: '',
-    linkedin: '#',
-  },
-  {
-    name: 'Guest Judge 2',
-    title: 'TBD',
-    company: '',
-    image: '',
-    linkedin: '#',
-  },
+  
 ];
 
 const FEATURED_COUNT = 3;

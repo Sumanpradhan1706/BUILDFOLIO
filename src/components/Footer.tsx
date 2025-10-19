@@ -89,7 +89,7 @@ export default function Footer() {
                     <Twitter size={20} className="text-primary" />
                   </a>
                   <a
-                    href="https://www.instagram.com/wearetechverse/"
+                    href="https://www.instagram.com/techversecommunity/"
                     className="w-10 h-10 bg-glass rounded-lg flex items-center justify-center hover-glow"
                     target="_blank"
                     rel="noopener noreferrer"

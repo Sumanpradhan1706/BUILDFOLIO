@@ -731,7 +731,7 @@ export default function RegistrationForm() {
                                                     <span>I follow TechVerse on Instagram <span className="text-primary">*</span></span>
                                                 </Label>
                                                 <a
-                                                    href="https://www.instagram.com/wearetechverse/"
+                                                    href="https://www.instagram.com/techversecommunity/"
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     className="inline-block mt-2 text-xs sm:text-sm text-primary hover:text-primary/80 underline hover:no-underline transition-all"

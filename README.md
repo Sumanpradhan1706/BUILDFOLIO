@@ -1,73 +1,143 @@
-# Welcome to your Lovable project
+# BuildFolio 2025 — TechVerse Buildathon Official Site
 
-## Project info
+BuildFolio 2025 is the official site for TechVerse’s portfolio buildathon — a design-meets-code challenge where participants craft and showcase their personal portfolios to win recognition, feedback, and swags. This repository contains the public landing site, timeline, judges, FAQs, and the registration portal.
 
-**URL**: https://lovable.dev/projects/3a668d24-178f-41da-97e8-baf5923ce5f9
+- Live Competition Window: 15 Nov 2025
+- Registration closes: 10 Nov 2025, 11:59 PM IST
+- Judging: 16 Nov 2025, 7:00 PM IST (online)
+- Results: 16 Nov 2025, 11:00 PM IST
 
-## How can I edit this code?
+Contact: techversecommunity7@gmail.com
 
-There are several ways of editing your application.
 
-**Use Lovable**
+## What is TechVerse?
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/3a668d24-178f-41da-97e8-baf5923ce5f9) and start prompting.
+TechVerse is a student-led community where students, developers, and tech enthusiasts unite to learn, build, and grow together. BuildFolio 2025 is organized by the TechVerse community.
 
-Changes made via Lovable will be committed automatically to this repo.
+- WhatsApp: https://chat.whatsapp.com/DRBBLzTOMndAEaf7e9Ddq9
+- LinkedIn: https://www.linkedin.com/company/techversecommunity/about/?viewAsMember=true
+- Instagram: https://www.instagram.com/techversecommunity/
 
-**Use your preferred IDE**
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Highlights
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- Purpose-built official website for the BuildFolio 2025 competition
+- Modern animated UI with Glassmorphism and neon accents
+- 3D background canvas and smooth section reveals
+- End-to-end registration flow with validation and proof uploads
+- SPA routing (Home, Register, 404) with Vite and React Router
+- Ready for zero-config deployment on Vercel (SPA rewrites included)
 
-Follow these steps:
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## Tech Stack
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+- React 18 + TypeScript
+- Vite 5 (Dev server and build)
+- Tailwind CSS + tailwind-merge + tailwindcss-animate
+- shadcn/ui + Radix UI primitives (buttons, dialogs, accordion, etc.)
+- Framer Motion (animations)
+- Three.js + @react-three/fiber + @react-three/drei (3D background)
+- React Router v6
+- Lucide Icons
 
-# Step 3: Install the necessary dependencies.
-npm i
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+## Project Structure
 
-**Edit a file directly in GitHub**
+Key files and folders you might edit first:
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- `src/pages/Index.tsx` — Home page combining sections (Hero, About, Timeline, Judges, FAQ)
+- `src/pages/Register.tsx` — Registration route
+- `src/components/RegistrationForm.tsx` — Registration logic, validation, and submission endpoint
+- `src/components/HeroSection.tsx` — Hero with countdown and CTA
+- `src/components/TimelineSection.tsx` — Event milestones and dates
+- `src/components/JudgesSection.tsx` — Judges and profiles
+- `src/components/FAQSection.tsx` — Frequently asked questions
+- `vercel.json` — SPA rewrite for Vercel deployments
+- `vite.config.ts`, `tailwind.config.ts` — Tooling configuration
 
-**Use GitHub Codespaces**
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Event Details (as shown on site)
 
-## What technologies are used for this project?
+- Applications Open: 16 Oct 2025
+- Applications Close: 10 Nov 2025, 23:59
+- Hackathon Begins: 15 Nov 2025, 00:00
+- Submission Deadline: 16 Nov 2025, 12:00
+- Judging (Online): 16 Nov 2025, 19:00
+- Results Announced: 16 Nov 2025, 23:00
 
-This project is built with:
+Why participate?
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- Learn from industry professionals via actionable feedback
+- Network with builders and designers
+- Build a portfolio that stands out to recruiters
+- Win recognition and exciting swags
 
-## How can I deploy this project?
 
-Simply open [Lovable](https://lovable.dev/projects/3a668d24-178f-41da-97e8-baf5923ce5f9) and click on Share -> Publish.
+## Registration Flow
 
-## Can I connect a custom domain to my Lovable project?
+The registration form collects participant details and enforces fair-play checks:
 
-Yes, you can!
+- Required fields: Name, Email, Phone, College/University, GitHub, LinkedIn, City
+- Community criteria: Join TechVerse WhatsApp and follow TechVerse on LinkedIn and Instagram
+- Proof uploads: Screenshots for WhatsApp, LinkedIn, and Instagram
+- Terms: Explicit consent and competition agreement
+- Spam prevention: Client-side cooldown (prevents rapid duplicate submissions)
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Submission endpoint is currently configured to a Google Apps Script Web App using `fetch` with `mode: "no-cors"`.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Update the endpoint here if needed:
+- File: `src/components/RegistrationForm.tsx`
+- Constant: `GOOGLE_SCRIPT_URL`
+
+Note: With `no-cors`, the client can’t read server responses; the UI assumes success if the request doesn’t throw.
+
+## Deployment (Vercel)
+
+This project is configured for single-page app routing on Vercel:
+
+- `vercel.json` contains rewrites to serve `index.html` for all routes
+- Build command: `vite build` (Vercel auto-detects)
+- Output: `dist/`
+
+Steps:
+1) Push your repository to GitHub
+2) Import the project into Vercel
+3) Use framework preset “Vite” or “Other”, confirm build command and output directory
+4) Deploy
+
+Routing (e.g., `/register`) will work thanks to the rewrite rule.
+
+
+## Customization Pointers
+
+- Branding and copy: Edit text in `src/components/*Section.tsx` files
+- Dates/timeline: `src/components/TimelineSection.tsx`
+- Countdown date: `src/components/HeroSection.tsx`
+- Judges: `src/components/JudgesSection.tsx`
+- Registration endpoint: `src/components/RegistrationForm.tsx` (`GOOGLE_SCRIPT_URL`)
+- Colors/Theme: `tailwind.config.ts` and utility classes in components
+
+SEO and meta:
+- Public assets: `public/robots.txt`, `public/404.html`, `public/_redirects`
+- `index.html`: Update title, meta description, and social tags if needed
+
+
+## FAQs (quick view)
+
+- Who can participate? Anyone — students, professionals, hobbyists.
+- Registration fee? No, it’s free.
+- Team or individual? Individual.
+- Submission method? Instructions via email; final deadline on 16 Nov 2025 (12:00).
+- Judging basis? Creativity, storytelling, design, and overall presentation.
+- Allowed platforms? Any that best showcases your work (e.g., GitHub, Behance, Notion, Canva).
+
+
+## Credits
+
+Organized by the TechVerse community.
+- Community: TechVerse
+- Contact: techversecommunity7@gmail.com
+- Socials: WhatsApp, LinkedIn, Instagram
+
+If you use or adapt this project, please include attribution to TechVerse and the BuildFolio 2025 competition.
+

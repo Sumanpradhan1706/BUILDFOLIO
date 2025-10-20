@@ -30,6 +30,11 @@ const faqs = [
       'Once you register, you\'ll receive detailed submission guidelines via email. You can submit your portfolio through our online portal by the deadline on November 15th, 2025.',
   },
   {
+    question: 'On what basis judgement will be done in Buildathon ?',
+    answer:
+      'Judging will be based on how creatively and effectively you tell your story through design and visuals. The focus is on showcasing innovation and originality in your portfolio\'s presentation',
+  },
+  {
     question: 'Can I use platforms like GitHub, Behance, Notion, or Canva?',
     answer:
       'Yes! You can use any platform that best represents your work and skills.',
@@ -37,7 +42,7 @@ const faqs = [
   {
     question: 'What is TechVerse?',
     answer:
-      'A cosmic community where developers, designers and tech enthusiasts unite to build the future. Connect, learn, and create amazing projects together.',
+      'A student led community where students, devlopers and tech enthusiasts unite to build the future and BUILDATHON is organized by TechVerse.',
   },
   {
     question: 'What are the rewards for the winners?',

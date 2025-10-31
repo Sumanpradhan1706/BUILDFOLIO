@@ -6,6 +6,7 @@ import TimelineSection from '@/components/TimelineSection';
 import JudgesSection from '@/components/JudgesSection';
 import FAQSection from '@/components/FAQSection';
 import Footer from '@/components/Footer';
+import EventTicker from '@/components/EventTicker';
 
 const Index = () => {
   return (
@@ -20,6 +21,7 @@ const Index = () => {
         <FAQSection />
       </main>
       <Footer />
+      <EventTicker />
     </div>
   );
 };

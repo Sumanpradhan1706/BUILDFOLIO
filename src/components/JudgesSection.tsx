@@ -18,7 +18,7 @@ const judges = [
   },
   {
     name: 'Utso Sarkar',
-    image: 'https://media.licdn.com/dms/image/v2/D5603AQHuiM5NbKiSsw/profile-displayphoto-shrink_800_800/B56ZVF95_zGUAo-/0/1740635612479?e=1762387200&v=beta&t=Z3baNTXwpFFRce0fm5BVjULHJ9-4kXD01MEXjCPMZc4',
+    image: 'https://res.cloudinary.com/dczuivjqz/image/upload/v1762523612/judge3_t3qo9u.jpg',
     linkedin: 'https://www.linkedin.com/in/utso/',
     description: 'Founder @Strato INC | Developer @MDG Space | ETH Global’25 Winner | IIT Roorke MnC',
   },

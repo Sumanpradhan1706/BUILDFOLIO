@@ -5,7 +5,7 @@ import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Loader2, CheckCircle2, AlertCircle, Shield, Clock, Mail, Users, MessageCircle, Linkedin, Instagram, Upload } from 'lucide-react';
+import { Loader2, CheckCircle2, AlertCircle, Shield, Clock, Mail, Users, MessageCircle, Linkedin, Instagram } from 'lucide-react';
 import coverImage from '@/assets/cover image of BuildFolio.jpg';
 
 interface FormData {
@@ -19,9 +19,6 @@ interface FormData {
     joinedWhatsApp: boolean;
     followedLinkedIn: boolean;
     followedInstagram: boolean;
-    whatsappScreenshot: File | null;
-    linkedinScreenshot: File | null;
-    instagramScreenshot: File | null;
     termsAccepted: boolean;
 }
 
@@ -34,9 +31,6 @@ interface FormErrors {
     linkedin?: string;
     city?: string;
     socialMedia?: string;
-    whatsappScreenshot?: string;
-    linkedinScreenshot?: string;
-    instagramScreenshot?: string;
     termsAccepted?: string;
 }
 
@@ -52,9 +46,6 @@ export default function RegistrationForm() {
         joinedWhatsApp: false,
         followedLinkedIn: false,
         followedInstagram: false,
-        whatsappScreenshot: null,
-        linkedinScreenshot: null,
-        instagramScreenshot: null,
         termsAccepted: false,
     });
 
@@ -194,25 +185,7 @@ export default function RegistrationForm() {
         setIsSubmitting(true);
 
         try {
-            // Convert files to base64
-            const toBase64 = (file: File): Promise<string> => {
-                return new Promise((resolve, reject) => {
-                    const reader = new FileReader();
-                    reader.readAsDataURL(file);
-                    reader.onload = () => resolve(reader.result as string);
-                    reader.onerror = (error) => reject(error);
-                });
-            };
-
-            const whatsappScreenshotBase64 = formData.whatsappScreenshot
-                ? await toBase64(formData.whatsappScreenshot)
-                : null;
-            const linkedinScreenshotBase64 = formData.linkedinScreenshot
-                ? await toBase64(formData.linkedinScreenshot)
-                : null;
-            const instagramScreenshotBase64 = formData.instagramScreenshot
-                ? await toBase64(formData.instagramScreenshot)
-                : null;
+            // No screenshot processing — uploads were removed
 
             // Replace this URL with your Google Apps Script Web App URL
             const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzy5e7D0fg6JAMIxhOCbCyOlr9Ev6l07Q3m1QQjm58pIf6q_rayEp0rxllIbwnbtLMk/exec';
@@ -231,12 +204,6 @@ export default function RegistrationForm() {
                     github: formData.github,
                     linkedin: formData.linkedin,
                     city: formData.city,
-                    whatsappScreenshot: whatsappScreenshotBase64,
-                    whatsappScreenshotName: formData.whatsappScreenshot?.name,
-                    linkedinScreenshot: linkedinScreenshotBase64,
-                    linkedinScreenshotName: formData.linkedinScreenshot?.name,
-                    instagramScreenshot: instagramScreenshotBase64,
-                    instagramScreenshotName: formData.instagramScreenshot?.name,
                     timestamp: new Date().toISOString(),
                 }),
             });
@@ -264,9 +231,6 @@ export default function RegistrationForm() {
                 joinedWhatsApp: false,
                 followedLinkedIn: false,
                 followedInstagram: false,
-                whatsappScreenshot: null,
-                linkedinScreenshot: null,
-                instagramScreenshot: null,
                 termsAccepted: false,
             });
 
@@ -592,40 +556,7 @@ export default function RegistrationForm() {
                                             </div>
                                         </div>
 
-                                        {/* WhatsApp Screenshot Upload */}
-                                        <div className="space-y-2 pl-0 sm:pl-7">
-                                            <Label htmlFor="whatsappScreenshot" className="text-xs sm:text-sm font-medium text-foreground/90">
-                                                Upload Screenshot Proof (optional)
-                                            </Label>
-                                            <div className="relative">
-                                                <Input
-                                                    id="whatsappScreenshot"
-                                                    type="file"
-                                                    accept="image/*"
-                                                    onChange={(e) => {
-                                                        const file = e.target.files?.[0] || null;
-                                                        setFormData((prev) => ({ ...prev, whatsappScreenshot: file }));
-                                                        if (errors.whatsappScreenshot) {
-                                                            setErrors((prev) => ({ ...prev, whatsappScreenshot: undefined }));
-                                                        }
-                                                    }}
-                                                    disabled={isSubmitting}
-                                                    className={`text-xs sm:text-sm bg-glass border-primary/30 text-foreground file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-primary/20 file:text-primary hover:file:bg-primary/30 ${errors.whatsappScreenshot ? 'border-red-500' : ''}`}
-                                                />
-                                                {formData.whatsappScreenshot && (
-                                                    <p className="text-xs text-green-500 mt-1 flex items-center gap-1">
-                                                        <CheckCircle2 className="w-3 h-3" />
-                                                        {formData.whatsappScreenshot.name}
-                                                    </p>
-                                                )}
-                                            </div>
-                                            {errors.whatsappScreenshot && (
-                                                <p className="text-xs text-red-400 flex items-center gap-1">
-                                                    <AlertCircle className="w-3 h-3" />
-                                                    {errors.whatsappScreenshot}
-                                                </p>
-                                            )}
-                                        </div>
+                                        {/* Screenshot uploads removed (optional) */}
                                     </div>
 
                                     {/* LinkedIn Page */}
@@ -662,40 +593,7 @@ export default function RegistrationForm() {
                                             </div>
                                         </div>
 
-                                        {/* LinkedIn Screenshot Upload */}
-                                        <div className="space-y-2 pl-0 sm:pl-7">
-                                            <Label htmlFor="linkedinScreenshot" className="text-xs sm:text-sm font-medium text-foreground/90">
-                                                Upload Screenshot Proof (optional)
-                                            </Label>
-                                            <div className="relative">
-                                                <Input
-                                                    id="linkedinScreenshot"
-                                                    type="file"
-                                                    accept="image/*"
-                                                    onChange={(e) => {
-                                                        const file = e.target.files?.[0] || null;
-                                                        setFormData((prev) => ({ ...prev, linkedinScreenshot: file }));
-                                                        if (errors.linkedinScreenshot) {
-                                                            setErrors((prev) => ({ ...prev, linkedinScreenshot: undefined }));
-                                                        }
-                                                    }}
-                                                    disabled={isSubmitting}
-                                                    className={`text-xs sm:text-sm bg-glass border-primary/30 text-foreground file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-primary/20 file:text-primary hover:file:bg-primary/30 ${errors.linkedinScreenshot ? 'border-red-500' : ''}`}
-                                                />
-                                                {formData.linkedinScreenshot && (
-                                                    <p className="text-xs text-green-500 mt-1 flex items-center gap-1">
-                                                        <CheckCircle2 className="w-3 h-3" />
-                                                        {formData.linkedinScreenshot.name}
-                                                    </p>
-                                                )}
-                                            </div>
-                                            {errors.linkedinScreenshot && (
-                                                <p className="text-xs text-red-400 flex items-center gap-1">
-                                                    <AlertCircle className="w-3 h-3" />
-                                                    {errors.linkedinScreenshot}
-                                                </p>
-                                            )}
-                                        </div>
+                                        {/* LinkedIn screenshot upload removed */}
                                     </div>
 
                                     {/* Instagram Page */}
@@ -732,40 +630,7 @@ export default function RegistrationForm() {
                                             </div>
                                         </div>
 
-                                        {/* Instagram Screenshot Upload */}
-                                        <div className="space-y-2 pl-0 sm:pl-7">
-                                            <Label htmlFor="instagramScreenshot" className="text-xs sm:text-sm font-medium text-foreground/90">
-                                                Upload Screenshot Proof (optional)
-                                            </Label>
-                                            <div className="relative">
-                                                <Input
-                                                    id="instagramScreenshot"
-                                                    type="file"
-                                                    accept="image/*"
-                                                    onChange={(e) => {
-                                                        const file = e.target.files?.[0] || null;
-                                                        setFormData((prev) => ({ ...prev, instagramScreenshot: file }));
-                                                        if (errors.instagramScreenshot) {
-                                                            setErrors((prev) => ({ ...prev, instagramScreenshot: undefined }));
-                                                        }
-                                                    }}
-                                                    disabled={isSubmitting}
-                                                    className={`text-xs sm:text-sm bg-glass border-primary/30 text-foreground file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-primary/20 file:text-primary hover:file:bg-primary/30 ${errors.instagramScreenshot ? 'border-red-500' : ''}`}
-                                                />
-                                                {formData.instagramScreenshot && (
-                                                    <p className="text-xs text-green-500 mt-1 flex items-center gap-1">
-                                                        <CheckCircle2 className="w-3 h-3" />
-                                                        {formData.instagramScreenshot.name}
-                                                    </p>
-                                                )}
-                                            </div>
-                                            {errors.instagramScreenshot && (
-                                                <p className="text-xs text-red-400 flex items-center gap-1">
-                                                    <AlertCircle className="w-3 h-3" />
-                                                    {errors.instagramScreenshot}
-                                                </p>
-                                            )}
-                                        </div>
+                                        {/* Instagram screenshot upload removed */}
                                     </div>
 
                                     {errors.socialMedia && (

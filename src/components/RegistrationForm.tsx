@@ -246,7 +246,7 @@ export default function RegistrationForm() {
     };
 
     return (
-        <div className="relative min-h-screen w-full overflow-hidden bg-background">
+        <div id="registration" className="relative min-h-screen w-full overflow-hidden bg-background">
             {/* Same background as main page */}
             <div className="absolute inset-0 bg-gradient-to-b from-background via-space-deep to-background" />
 

@@ -14,7 +14,7 @@ const timelineEvents = [
   {
     icon: Clock,
     title: 'Applications Close',
-    date: '10 Nov 2025 · 23:59',
+    date: '13 Nov 2025 · 23:59',
     description: 'Last chance to register before the portal closes for new entries.',
     side: 'left',
   },

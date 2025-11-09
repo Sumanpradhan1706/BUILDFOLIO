@@ -149,16 +149,7 @@ export default function RegistrationForm() {
             newErrors.socialMedia = 'Please complete all social media requirements for better selection chances';
         }
 
-        // Screenshot validation
-        if (!formData.whatsappScreenshot) {
-            newErrors.whatsappScreenshot = 'WhatsApp screenshot is required';
-        }
-        if (!formData.linkedinScreenshot) {
-            newErrors.linkedinScreenshot = 'LinkedIn screenshot is required';
-        }
-        if (!formData.instagramScreenshot) {
-            newErrors.instagramScreenshot = 'Instagram screenshot is required';
-        }
+        // Screenshot uploads are optional now — no validation required
 
         // Terms acceptance validation
         if (!formData.termsAccepted) {
@@ -604,7 +595,7 @@ export default function RegistrationForm() {
                                         {/* WhatsApp Screenshot Upload */}
                                         <div className="space-y-2 pl-0 sm:pl-7">
                                             <Label htmlFor="whatsappScreenshot" className="text-xs sm:text-sm font-medium text-foreground/90">
-                                                Upload Screenshot Proof <span className="text-primary">*</span>
+                                                Upload Screenshot Proof (optional)
                                             </Label>
                                             <div className="relative">
                                                 <Input
@@ -674,7 +665,7 @@ export default function RegistrationForm() {
                                         {/* LinkedIn Screenshot Upload */}
                                         <div className="space-y-2 pl-0 sm:pl-7">
                                             <Label htmlFor="linkedinScreenshot" className="text-xs sm:text-sm font-medium text-foreground/90">
-                                                Upload Screenshot Proof <span className="text-primary">*</span>
+                                                Upload Screenshot Proof (optional)
                                             </Label>
                                             <div className="relative">
                                                 <Input
@@ -744,7 +735,7 @@ export default function RegistrationForm() {
                                         {/* Instagram Screenshot Upload */}
                                         <div className="space-y-2 pl-0 sm:pl-7">
                                             <Label htmlFor="instagramScreenshot" className="text-xs sm:text-sm font-medium text-foreground/90">
-                                                Upload Screenshot Proof <span className="text-primary">*</span>
+                                                Upload Screenshot Proof (optional)
                                             </Label>
                                             <div className="relative">
                                                 <Input

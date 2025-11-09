@@ -22,15 +22,17 @@ const judges = [
     linkedin: 'https://www.linkedin.com/in/utso/',
     description: 'Founder @Strato INC | Developer @MDG Space | ETH Global’25 Winner | IIT Roorke MnC',
   },
+  {
+    name: 'Arka Dash',
+    image: 'https://drive.google.com/open?id=1qEf4fU1TH71jTyanSg_0QiUBBTw4_DVs',
+    linkedin: 'https://www.linkedin.com/in/arka-dash',
+    description: 'Code Relay 3.0 Winner || Kaggle Contributor || Data Science || AI/ML || Backend Developer',
+  },
 ];
-
-const FEATURED_COUNT = 3;
-
 export default function JudgesSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
-  const featuredJudges = judges.slice(0, FEATURED_COUNT);
-  const guestJudges = judges.slice(FEATURED_COUNT);
+
 
   const renderJudgeCard = (judge: (typeof judges)[number], index: number) => (
     <motion.div
@@ -38,7 +40,7 @@ export default function JudgesSection() {
       initial={{ opacity: 0, y: 50, rotateY: -20 }}
       animate={isInView ? { opacity: 1, y: 0, rotateY: 0 } : {}}
       transition={{ duration: 0.8, delay: index * 0.2 }}
-      className="bg-glass p-6 md:p-8 rounded-2xl hover-glow group perspective-1000 shadow-lg w-full md:w-72 mx-auto"
+    className="bg-glass p-6 md:p-8 rounded-2xl hover-glow group perspective-1000 shadow-lg w-full"
     >
       <div className="relative mb-8 overflow-hidden rounded-xl border-2 border-primary/30 group-hover:border-primary transition-all duration-300">
         {judge.image ? (
@@ -89,14 +91,12 @@ export default function JudgesSection() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {featuredJudges.map((judge, index) => renderJudgeCard(judge, index))}
-
-            {guestJudges.length > 0 && (
-              <div className="md:col-span-3 flex flex-col items-center gap-8 md:flex-row md:justify-center">
-                {guestJudges.map((judge, index) => renderJudgeCard(judge, FEATURED_COUNT + index))}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {judges.map((judge, index) => (
+              <div key={judge.name} className="w-full">
+                {renderJudgeCard(judge, index)}
               </div>
-            )}
+            ))}
           </div>
         </motion.div>
       </div>

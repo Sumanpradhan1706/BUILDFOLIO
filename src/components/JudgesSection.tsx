@@ -24,7 +24,7 @@ const judges = [
   },
   {
     name: 'Arka Dash',
-    image: 'https://drive.google.com/open?id=1qEf4fU1TH71jTyanSg_0QiUBBTw4_DVs',
+    image: 'https://res.cloudinary.com/dwc6ctdom/image/upload/v1762758676/pp_-_Arka_Dash_stswvb.jpg',
     linkedin: 'https://www.linkedin.com/in/arka-dash',
     description: 'Code Relay 3.0 Winner || Kaggle Contributor || Data Science || AI/ML || Backend Developer',
   },

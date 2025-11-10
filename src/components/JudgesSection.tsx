@@ -8,13 +8,13 @@ const judges = [
     name: 'Rohit Debnath',
     image: 'https://res.cloudinary.com/dczuivjqz/image/upload/v1760717989/Rohit_Debnath_xngstq.jpg',
     linkedin: 'https://www.linkedin.com/in/rohit-debnath/',
-    description: 'Dev @sparkmentis.ai | Ex.Intern @Earnify, @Lane | 4x Hackathon Winner | Co-founder Goosy.dev',
+    description: 'Dev @sparkmentis.ai | Ex.Intern @Earnify, @Lane | 4x Hackathon Winner | Co-founder goosy.dev',
   },
   {
     name: 'Akash Nath',
     image: 'https://res.cloudinary.com/dczuivjqz/image/upload/v1760717987/Akash_Nath_qdsmvm.jpg',
     linkedin: 'https://www.linkedin.com/in/akash-nath29',
-    description: 'AI/ML Dev | CA @GSSoC’25 | SSoC’25 Contributor | 4x Hackathon Winner | Co-founder Goosy.ai',
+    description: 'AI/ML Dev | CA @GSSoC’25 | SSoC’25 Contributor | 4x Hackathon Winner | Co-founder goosy.dev',
   },
   {
     name: 'Utso Sarkar',

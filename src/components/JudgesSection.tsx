@@ -6,7 +6,7 @@ import { Linkedin } from 'lucide-react';
 const judges = [
   {
     name: 'Rohit Debnath',
-    image: 'https://res.cloudinary.com/dczuivjqz/image/upload/v1760717989/Rohit_Debnath_xngstq.jpg',
+    image: 'https://res.cloudinary.com/dwc6ctdom/image/upload/v1762934970/rohit_da_r0ounk.jpg',
     linkedin: 'https://www.linkedin.com/in/rohit-debnath/',
     description: 'Dev @sparkmentis.ai | Ex.Intern @Earnify, @Lane | 4x Hackathon Winner | Co-founder goosy.dev',
   },

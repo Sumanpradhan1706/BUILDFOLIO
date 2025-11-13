@@ -57,7 +57,14 @@ export default function RegistrationForm() {
     }>({ type: null, message: '' });
 
     // Registration deadline
-    const REGISTRATION_DEADLINE = 'November 10, 2025 11:59 PM IST';
+    const REGISTRATION_DEADLINE = 'November 13, 2025 11:59 PM IST';
+
+    // Check if registration is closed (after November 13, 2025)
+    const isRegistrationClosed = () => {
+        const currentDate = new Date();
+        const deadlineDate = new Date('2025-11-13T23:59:59+05:30'); // IST timezone
+        return currentDate > deadlineDate;
+    };
 
     // Spam prevention: Check if user has submitted recently
     const checkSpamPrevention = (): boolean => {
@@ -212,7 +219,7 @@ export default function RegistrationForm() {
             // Assume success if no error was thrown
             setSubmitStatus({
                 type: 'success',
-                message: 'Registration successful! Our judges will review your application and You will receive your selection status via email after registration closes on November 10th, 2025..',
+                message: 'Registration successful! Our judges will review your application and You will receive your selection status via email after registration closes on November 13th, 2025.',
             });
 
             // Store submission info for spam prevention
@@ -294,7 +301,7 @@ export default function RegistrationForm() {
                                             <h3 className="font-bold text-base sm:text-lg text-primary mb-1.5 sm:mb-2 font-orbitron">Verification Process</h3>
                                             <p className="text-sm sm:text-base text-foreground/80 leading-relaxed">
                                                 After registration, our panel of expert judges will carefully review your profile.
-                                                You will receive your selection status via email after registration closes on <strong className="text-primary">November 10th, 2025</strong> once your application is verified.
+                                                You will receive your selection status via email after registration closes on <strong className="text-primary">November 13th, 2025</strong> once your application is verified.
                                             </p>
                                         </div>
                                     </div>
@@ -332,402 +339,470 @@ export default function RegistrationForm() {
                                 </div>
                             </div>
 
-                            {/* Registration Form */}
-                            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 md:space-y-6">
-                                {/* Name Field */}
-                                <div className="space-y-2">
-                                    <Label htmlFor="name" className="text-sm sm:text-base font-semibold text-foreground">
-                                        Full Name <span className="text-primary">*</span>
-                                    </Label>
-                                    <Input
-                                        id="name"
-                                        name="name"
-                                        type="text"
-                                        placeholder="Enter your Full Name"
-                                        value={formData.name}
-                                        onChange={handleInputChange}
-                                        className={`h-11 sm:h-12 text-sm sm:text-base bg-glass border-primary/30 text-foreground placeholder:text-foreground/40 focus:border-primary ${errors.name ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
-                                        disabled={isSubmitting}
-                                    />
-                                    {errors.name && (
-                                        <p className="text-xs sm:text-sm text-red-400 flex items-center gap-1">
-                                            <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                                            {errors.name}
+                            {/* Registration Closed Message */}
+                            {isRegistrationClosed() && (
+                                <Alert className="border-primary/50 bg-gradient-to-br from-primary/20 via-neon-glow/10 to-primary/20 backdrop-blur-xl">
+                                    <AlertCircle className="h-5 w-5 text-primary" />
+                                    <AlertTitle className="text-lg font-bold font-orbitron text-primary">
+                                        Registration Closed
+                                    </AlertTitle>
+                                    <AlertDescription className="text-sm sm:text-base text-foreground/90 space-y-3 mt-2">
+                                        <p className="leading-relaxed">
+                                            Thank you for your interest in <strong className="text-primary">BuildFolio 2025</strong>!
                                         </p>
-                                    )}
-                                </div>
-
-                                {/* Email and Phone in Grid */}
-                                <div className="grid sm:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
-                                    {/* Email Field */}
-                                    <div className="space-y-2">
-                                        <Label htmlFor="email" className="text-sm sm:text-base font-semibold text-foreground">
-                                            Email Address <span className="text-primary">*</span>
-                                        </Label>
-                                        <Input
-                                            id="email"
-                                            name="email"
-                                            type="email"
-                                            placeholder="you@gmail.com"
-                                            value={formData.email}
-                                            onChange={handleInputChange}
-                                            className={`h-11 sm:h-12 text-sm sm:text-base bg-glass border-primary/30 text-foreground placeholder:text-foreground/40 focus:border-primary ${errors.email ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
-                                            disabled={isSubmitting}
-                                        />
-                                        {errors.email && (
-                                            <p className="text-xs sm:text-sm text-red-400 flex items-center gap-1">
-                                                <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                                                {errors.email}
-                                            </p>
-                                        )}
-                                    </div>
-
-                                    {/* Phone Field */}
-                                    <div className="space-y-2">
-                                        <Label htmlFor="phone" className="text-sm sm:text-base font-semibold text-foreground">
-                                            Phone Number <span className="text-primary">*</span>
-                                        </Label>
-                                        <Input
-                                            id="phone"
-                                            name="phone"
-                                            type="tel"
-                                            placeholder="9876543210"
-                                            value={formData.phone}
-                                            onChange={handleInputChange}
-                                            className={`h-11 sm:h-12 text-sm sm:text-base bg-glass border-primary/30 text-foreground placeholder:text-foreground/40 focus:border-primary ${errors.phone ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
-                                            disabled={isSubmitting}
-                                            maxLength={10}
-                                        />
-                                        {errors.phone && (
-                                            <p className="text-xs sm:text-sm text-red-400 flex items-center gap-1">
-                                                <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                                                {errors.phone}
-                                            </p>
-                                        )}
-                                    </div>
-                                </div>
-
-                                {/* College and City in Grid */}
-                                <div className="grid sm:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
-                                    {/* College Field */}
-                                    <div className="space-y-2">
-                                        <Label htmlFor="college" className="text-sm sm:text-base font-semibold text-foreground">
-                                            College/University <span className="text-primary">*</span>
-                                        </Label>
-                                        <Input
-                                            id="college"
-                                            name="college"
-                                            type="text"
-                                            placeholder="ABC University"
-                                            value={formData.college}
-                                            onChange={handleInputChange}
-                                            className={`h-11 sm:h-12 text-sm sm:text-base bg-glass border-primary/30 text-foreground placeholder:text-foreground/40 focus:border-primary ${errors.college ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
-                                            disabled={isSubmitting}
-                                        />
-                                        {errors.college && (
-                                            <p className="text-xs sm:text-sm text-red-400 flex items-center gap-1">
-                                                <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                                                {errors.college}
-                                            </p>
-                                        )}
-                                    </div>
-
-                                    {/* City Field */}
-                                    <div className="space-y-2">
-                                        <Label htmlFor="city" className="text-sm sm:text-base font-semibold text-foreground">
-                                            City <span className="text-primary">*</span>
-                                        </Label>
-                                        <Input
-                                            id="city"
-                                            name="city"
-                                            type="text"
-                                            placeholder="Mumbai"
-                                            value={formData.city}
-                                            onChange={handleInputChange}
-                                            className={`h-11 sm:h-12 text-sm sm:text-base bg-glass border-primary/30 text-foreground placeholder:text-foreground/40 focus:border-primary ${errors.city ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
-                                            disabled={isSubmitting}
-                                        />
-                                        {errors.city && (
-                                            <p className="text-xs sm:text-sm text-red-400 flex items-center gap-1">
-                                                <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                                                {errors.city}
-                                            </p>
-                                        )}
-                                    </div>
-                                </div>
-
-                                {/* GitHub Field */}
-                                <div className="space-y-2">
-                                    <Label htmlFor="github" className="text-sm sm:text-base font-semibold text-foreground">
-                                        GitHub Profile URL <span className="text-primary">*</span>
-                                    </Label>
-                                    <Input
-                                        id="github"
-                                        name="github"
-                                        type="url"
-                                        placeholder="https://github.com/yourusername"
-                                        value={formData.github}
-                                        onChange={handleInputChange}
-                                        className={`h-11 sm:h-12 text-sm sm:text-base bg-glass border-primary/30 text-foreground placeholder:text-foreground/40 focus:border-primary ${errors.github ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
-                                        disabled={isSubmitting}
-                                    />
-                                    {errors.github && (
-                                        <p className="text-xs sm:text-sm text-red-400 flex items-center gap-1">
-                                            <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                                            {errors.github}
+                                        <p className="leading-relaxed">
+                                            The registration period has concluded on <strong className="text-primary">November 13th, 2025</strong>.
+                                            We received an overwhelming response and are excited to work with all our registered participants.
                                         </p>
-                                    )}
-                                    <p className="text-xs sm:text-sm text-foreground/60">
-                                        Your GitHub profile helps us understand your coding experience
-                                    </p>
-                                </div>
-
-                                {/* LinkedIn Field */}
-                                <div className="space-y-2">
-                                    <Label htmlFor="linkedin" className="text-sm sm:text-base font-semibold text-foreground">
-                                        LinkedIn Profile URL <span className="text-primary">*</span>
-                                    </Label>
-                                    <Input
-                                        id="linkedin"
-                                        name="linkedin"
-                                        type="url"
-                                        placeholder="https://linkedin.com/in/yourusername"
-                                        value={formData.linkedin}
-                                        onChange={handleInputChange}
-                                        className={`h-11 sm:h-12 text-sm sm:text-base bg-glass border-primary/30 text-foreground placeholder:text-foreground/40 focus:border-primary ${errors.linkedin ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
-                                        disabled={isSubmitting}
-                                    />
-                                    {errors.linkedin && (
-                                        <p className="text-xs sm:text-sm text-red-400 flex items-center gap-1">
-                                            <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                                            {errors.linkedin}
-                                        </p>
-                                    )}
-                                    <p className="text-xs sm:text-sm text-foreground/60">
-                                        Connect with us professionally through LinkedIn
-                                    </p>
-                                </div>
-
-                                {/* Social Media Requirements - Mandatory for Better Selection */}
-                                <div className="space-y-3 sm:space-y-4 p-4 sm:p-5 md:p-6 bg-gradient-to-br from-primary/10 via-neon-glow/5 to-primary/5 rounded-lg sm:rounded-xl border-2 border-primary/30 hover-glow">
-                                    <div className="flex items-center gap-3 mb-3">
-                                        <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/20 flex items-center justify-center glow-neon">
-                                            <Users className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
-                                        </div>
-                                        <div className="flex-1 min-w-0">
-                                            <h3 className="font-bold text-base sm:text-lg text-primary font-orbitron">Join Our Community</h3>
-                                            <p className="text-xs sm:text-sm text-foreground/80">
-                                                <span className="text-primary font-semibold">Mandatory</span> for better selection chances
+                                        <div className="pt-2 space-y-2">
+                                            <p className="font-semibold text-primary">Stay Connected:</p>
+                                            <p className="leading-relaxed">
+                                                Join our community to be the first to know about <strong>BuildFolio 2026</strong> and other exciting events:
                                             </p>
-                                        </div>
-                                    </div>
-
-                                    {/* WhatsApp Community */}
-                                    <div className="space-y-3 p-3 sm:p-4 bg-glass rounded-lg border border-primary/20">
-                                        <div className="flex items-start space-x-2.5 sm:space-x-3">
-                                            <Checkbox
-                                                id="whatsapp"
-                                                checked={formData.joinedWhatsApp}
-                                                onCheckedChange={(checked) => {
-                                                    setFormData((prev) => ({ ...prev, joinedWhatsApp: checked as boolean }));
-                                                    if (errors.socialMedia) {
-                                                        setErrors((prev) => ({ ...prev, socialMedia: undefined }));
-                                                    }
-                                                }}
-                                                disabled={isSubmitting}
-                                                className={`mt-0.5 sm:mt-1 border-primary/50 data-[state=checked]:bg-primary data-[state=checked]:border-primary ${errors.socialMedia ? 'border-red-500' : ''}`}
-                                            />
-                                            <div className="flex-1 min-w-0">
-                                                <Label
-                                                    htmlFor="whatsapp"
-                                                    className="text-xs sm:text-sm font-medium leading-relaxed cursor-pointer text-foreground/90 flex items-center gap-2 flex-wrap"
-                                                >
-                                                    <MessageCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                                                    <span>I have joined the TechVerse WhatsApp Community <span className="text-primary">*</span></span>
-                                                </Label>
+                                            <div className="flex flex-wrap gap-3 pt-2">
                                                 <a
                                                     href="https://chat.whatsapp.com/DRBBLzTOMndAEaf7e9Ddq9"
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="inline-block mt-2 text-xs sm:text-sm text-primary hover:text-primary/80 underline hover:no-underline transition-all"
+                                                    className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/20 hover:bg-green-500/30 border border-green-500/50 rounded-lg text-sm font-medium transition-all hover:scale-105"
                                                 >
-                                                    Click here to join WhatsApp Community →
+                                                    <MessageCircle className="w-4 h-4" />
+                                                    WhatsApp Community
                                                 </a>
-                                            </div>
-                                        </div>
-
-                                        {/* Screenshot uploads removed (optional) */}
-                                    </div>
-
-                                    {/* LinkedIn Page */}
-                                    <div className="space-y-3 p-3 sm:p-4 bg-glass rounded-lg border border-primary/20">
-                                        <div className="flex items-start space-x-2.5 sm:space-x-3">
-                                            <Checkbox
-                                                id="linkedinFollow"
-                                                checked={formData.followedLinkedIn}
-                                                onCheckedChange={(checked) => {
-                                                    setFormData((prev) => ({ ...prev, followedLinkedIn: checked as boolean }));
-                                                    if (errors.socialMedia) {
-                                                        setErrors((prev) => ({ ...prev, socialMedia: undefined }));
-                                                    }
-                                                }}
-                                                disabled={isSubmitting}
-                                                className={`mt-0.5 sm:mt-1 border-primary/50 data-[state=checked]:bg-primary data-[state=checked]:border-primary ${errors.socialMedia ? 'border-red-500' : ''}`}
-                                            />
-                                            <div className="flex-1 min-w-0">
-                                                <Label
-                                                    htmlFor="linkedinFollow"
-                                                    className="text-xs sm:text-sm font-medium leading-relaxed cursor-pointer text-foreground/90 flex items-center gap-2 flex-wrap"
-                                                >
-                                                    <Linkedin className="w-4 h-4 text-blue-500 flex-shrink-0" />
-                                                    <span>I follow TechVerse on LinkedIn <span className="text-primary">*</span></span>
-                                                </Label>
                                                 <a
-                                                    href="https://www.linkedin.com/company/techversecommunity/about/?viewAsMember=true"
+                                                    href="https://www.linkedin.com/company/techversecommunity/"
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="inline-block mt-2 text-xs sm:text-sm text-primary hover:text-primary/80 underline hover:no-underline transition-all"
+                                                    className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/50 rounded-lg text-sm font-medium transition-all hover:scale-105"
                                                 >
-                                                    Click here to follow on LinkedIn →
+                                                    <Linkedin className="w-4 h-4" />
+                                                    LinkedIn
                                                 </a>
-                                            </div>
-                                        </div>
-
-                                        {/* LinkedIn screenshot upload removed */}
-                                    </div>
-
-                                    {/* Instagram Page */}
-                                    <div className="space-y-3 p-3 sm:p-4 bg-glass rounded-lg border border-primary/20">
-                                        <div className="flex items-start space-x-2.5 sm:space-x-3">
-                                            <Checkbox
-                                                id="instagramFollow"
-                                                checked={formData.followedInstagram}
-                                                onCheckedChange={(checked) => {
-                                                    setFormData((prev) => ({ ...prev, followedInstagram: checked as boolean }));
-                                                    if (errors.socialMedia) {
-                                                        setErrors((prev) => ({ ...prev, socialMedia: undefined }));
-                                                    }
-                                                }}
-                                                disabled={isSubmitting}
-                                                className={`mt-0.5 sm:mt-1 border-primary/50 data-[state=checked]:bg-primary data-[state=checked]:border-primary ${errors.socialMedia ? 'border-red-500' : ''}`}
-                                            />
-                                            <div className="flex-1 min-w-0">
-                                                <Label
-                                                    htmlFor="instagramFollow"
-                                                    className="text-xs sm:text-sm font-medium leading-relaxed cursor-pointer text-foreground/90 flex items-center gap-2 flex-wrap"
-                                                >
-                                                    <Instagram className="w-4 h-4 text-pink-500 flex-shrink-0" />
-                                                    <span>I follow TechVerse on Instagram <span className="text-primary">*</span></span>
-                                                </Label>
                                                 <a
                                                     href="https://www.instagram.com/techversecommunity/"
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="inline-block mt-2 text-xs sm:text-sm text-primary hover:text-primary/80 underline hover:no-underline transition-all"
+                                                    className="inline-flex items-center gap-2 px-4 py-2 bg-pink-500/20 hover:bg-pink-500/30 border border-pink-500/50 rounded-lg text-sm font-medium transition-all hover:scale-105"
                                                 >
-                                                    Click here to follow on Instagram →
+                                                    <Instagram className="w-4 h-4" />
+                                                    Instagram
                                                 </a>
                                             </div>
                                         </div>
-
-                                        {/* Instagram screenshot upload removed */}
-                                    </div>
-
-                                    {errors.socialMedia && (
-                                        <p className="text-xs sm:text-sm text-red-400 flex items-center gap-1 mt-2">
-                                            <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                                            {errors.socialMedia}
+                                        <p className="text-xs sm:text-sm text-foreground/70 pt-2">
+                                            We look forward to seeing you at our future events. Thank you for being a part of the TechVerse Community!
                                         </p>
-                                    )}
-                                </div>
+                                    </AlertDescription>
+                                </Alert>
+                            )}
 
-                                {/* Terms and Conditions - Glass morphism style */}
-                                <div className="space-y-2.5 sm:space-y-3 p-4 sm:p-5 md:p-6 bg-glass rounded-lg sm:rounded-xl border border-primary/20">
-                                    <div className="flex items-start space-x-2.5 sm:space-x-3">
-                                        <Checkbox
-                                            id="terms"
-                                            checked={formData.termsAccepted}
-                                            onCheckedChange={handleCheckboxChange}
-                                            disabled={isSubmitting}
-                                            className={`mt-0.5 sm:mt-1 border-primary/50 data-[state=checked]:bg-primary data-[state=checked]:border-primary ${errors.termsAccepted ? 'border-red-500' : ''}`}
-                                        />
-                                        <div className="flex-1 min-w-0">
-                                            <Label
-                                                htmlFor="terms"
-                                                className="text-xs sm:text-sm font-medium leading-relaxed cursor-pointer text-foreground/90"
-                                            >
-                                                I hereby confirm that all the information provided above is accurate and complete.
-                                                I understand that this data will be used solely for the purpose of ensuring a smooth
-                                                and fair competition process. I consent to the verification of my details by the
-                                                judging panel and agree to receive official communication regarding BuildFolio 2025
-                                                via email. <span className="text-primary">*</span>
+                            {/* Registration Form */}
+                            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 md:space-y-6">
+                                {/* Show message if registration is closed */}
+                                {isRegistrationClosed() ? (
+                                    <div className="text-center py-8">
+                                        <p className="text-foreground/70 text-sm">
+                                            The form is no longer accepting submissions.
+                                        </p>
+                                    </div>
+                                ) : (
+                                    <>
+                                        {/* Name Field */}
+                                        <div className="space-y-2">
+                                            <Label htmlFor="name" className="text-sm sm:text-base font-semibold text-foreground">
+                                                Full Name <span className="text-primary">*</span>
                                             </Label>
+                                            <Input
+                                                id="name"
+                                                name="name"
+                                                type="text"
+                                                placeholder="Enter your Full Name"
+                                                value={formData.name}
+                                                onChange={handleInputChange}
+                                                className={`h-11 sm:h-12 text-sm sm:text-base bg-glass border-primary/30 text-foreground placeholder:text-foreground/40 focus:border-primary ${errors.name ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
+                                                disabled={isSubmitting}
+                                            />
+                                            {errors.name && (
+                                                <p className="text-xs sm:text-sm text-red-400 flex items-center gap-1">
+                                                    <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                                                    {errors.name}
+                                                </p>
+                                            )}
                                         </div>
-                                    </div>
-                                    {errors.termsAccepted && (
-                                        <p className="text-xs sm:text-sm text-red-400 flex items-center gap-1 ml-6 sm:ml-7">
-                                            <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                                            {errors.termsAccepted}
-                                        </p>
-                                    )}
-                                </div>
 
-                                {/* Status Messages */}
-                                {submitStatus.type && (
-                                    <Alert
-                                        variant={submitStatus.type === 'error' ? 'destructive' : 'default'}
-                                        className={
-                                            submitStatus.type === 'success'
-                                                ? 'border-primary bg-primary/10 text-foreground backdrop-blur-xl'
-                                                : 'bg-glass backdrop-blur-xl'
-                                        }
-                                    >
-                                        {submitStatus.type === 'success' ? (
-                                            <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
-                                        ) : (
-                                            <AlertCircle className="h-4 w-4 sm:h-5 sm:w-5" />
+                                        {/* Email and Phone in Grid */}
+                                        <div className="grid sm:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
+                                            {/* Email Field */}
+                                            <div className="space-y-2">
+                                                <Label htmlFor="email" className="text-sm sm:text-base font-semibold text-foreground">
+                                                    Email Address <span className="text-primary">*</span>
+                                                </Label>
+                                                <Input
+                                                    id="email"
+                                                    name="email"
+                                                    type="email"
+                                                    placeholder="you@gmail.com"
+                                                    value={formData.email}
+                                                    onChange={handleInputChange}
+                                                    className={`h-11 sm:h-12 text-sm sm:text-base bg-glass border-primary/30 text-foreground placeholder:text-foreground/40 focus:border-primary ${errors.email ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
+                                                    disabled={isSubmitting}
+                                                />
+                                                {errors.email && (
+                                                    <p className="text-xs sm:text-sm text-red-400 flex items-center gap-1">
+                                                        <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                                                        {errors.email}
+                                                    </p>
+                                                )}
+                                            </div>
+
+                                            {/* Phone Field */}
+                                            <div className="space-y-2">
+                                                <Label htmlFor="phone" className="text-sm sm:text-base font-semibold text-foreground">
+                                                    Phone Number <span className="text-primary">*</span>
+                                                </Label>
+                                                <Input
+                                                    id="phone"
+                                                    name="phone"
+                                                    type="tel"
+                                                    placeholder="9876543210"
+                                                    value={formData.phone}
+                                                    onChange={handleInputChange}
+                                                    className={`h-11 sm:h-12 text-sm sm:text-base bg-glass border-primary/30 text-foreground placeholder:text-foreground/40 focus:border-primary ${errors.phone ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
+                                                    disabled={isSubmitting}
+                                                    maxLength={10}
+                                                />
+                                                {errors.phone && (
+                                                    <p className="text-xs sm:text-sm text-red-400 flex items-center gap-1">
+                                                        <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                                                        {errors.phone}
+                                                    </p>
+                                                )}
+                                            </div>
+                                        </div>
+
+                                        {/* College and City in Grid */}
+                                        <div className="grid sm:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
+                                            {/* College Field */}
+                                            <div className="space-y-2">
+                                                <Label htmlFor="college" className="text-sm sm:text-base font-semibold text-foreground">
+                                                    College/University <span className="text-primary">*</span>
+                                                </Label>
+                                                <Input
+                                                    id="college"
+                                                    name="college"
+                                                    type="text"
+                                                    placeholder="ABC University"
+                                                    value={formData.college}
+                                                    onChange={handleInputChange}
+                                                    className={`h-11 sm:h-12 text-sm sm:text-base bg-glass border-primary/30 text-foreground placeholder:text-foreground/40 focus:border-primary ${errors.college ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
+                                                    disabled={isSubmitting}
+                                                />
+                                                {errors.college && (
+                                                    <p className="text-xs sm:text-sm text-red-400 flex items-center gap-1">
+                                                        <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                                                        {errors.college}
+                                                    </p>
+                                                )}
+                                            </div>
+
+                                            {/* City Field */}
+                                            <div className="space-y-2">
+                                                <Label htmlFor="city" className="text-sm sm:text-base font-semibold text-foreground">
+                                                    City <span className="text-primary">*</span>
+                                                </Label>
+                                                <Input
+                                                    id="city"
+                                                    name="city"
+                                                    type="text"
+                                                    placeholder="Mumbai"
+                                                    value={formData.city}
+                                                    onChange={handleInputChange}
+                                                    className={`h-11 sm:h-12 text-sm sm:text-base bg-glass border-primary/30 text-foreground placeholder:text-foreground/40 focus:border-primary ${errors.city ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
+                                                    disabled={isSubmitting}
+                                                />
+                                                {errors.city && (
+                                                    <p className="text-xs sm:text-sm text-red-400 flex items-center gap-1">
+                                                        <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                                                        {errors.city}
+                                                    </p>
+                                                )}
+                                            </div>
+                                        </div>
+
+                                        {/* GitHub Field */}
+                                        <div className="space-y-2">
+                                            <Label htmlFor="github" className="text-sm sm:text-base font-semibold text-foreground">
+                                                GitHub Profile URL <span className="text-primary">*</span>
+                                            </Label>
+                                            <Input
+                                                id="github"
+                                                name="github"
+                                                type="url"
+                                                placeholder="https://github.com/yourusername"
+                                                value={formData.github}
+                                                onChange={handleInputChange}
+                                                className={`h-11 sm:h-12 text-sm sm:text-base bg-glass border-primary/30 text-foreground placeholder:text-foreground/40 focus:border-primary ${errors.github ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
+                                                disabled={isSubmitting}
+                                            />
+                                            {errors.github && (
+                                                <p className="text-xs sm:text-sm text-red-400 flex items-center gap-1">
+                                                    <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                                                    {errors.github}
+                                                </p>
+                                            )}
+                                            <p className="text-xs sm:text-sm text-foreground/60">
+                                                Your GitHub profile helps us understand your coding experience
+                                            </p>
+                                        </div>
+
+                                        {/* LinkedIn Field */}
+                                        <div className="space-y-2">
+                                            <Label htmlFor="linkedin" className="text-sm sm:text-base font-semibold text-foreground">
+                                                LinkedIn Profile URL <span className="text-primary">*</span>
+                                            </Label>
+                                            <Input
+                                                id="linkedin"
+                                                name="linkedin"
+                                                type="url"
+                                                placeholder="https://linkedin.com/in/yourusername"
+                                                value={formData.linkedin}
+                                                onChange={handleInputChange}
+                                                className={`h-11 sm:h-12 text-sm sm:text-base bg-glass border-primary/30 text-foreground placeholder:text-foreground/40 focus:border-primary ${errors.linkedin ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
+                                                disabled={isSubmitting}
+                                            />
+                                            {errors.linkedin && (
+                                                <p className="text-xs sm:text-sm text-red-400 flex items-center gap-1">
+                                                    <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                                                    {errors.linkedin}
+                                                </p>
+                                            )}
+                                            <p className="text-xs sm:text-sm text-foreground/60">
+                                                Connect with us professionally through LinkedIn
+                                            </p>
+                                        </div>
+
+                                        {/* Social Media Requirements - Mandatory for Better Selection */}
+                                        <div className="space-y-3 sm:space-y-4 p-4 sm:p-5 md:p-6 bg-gradient-to-br from-primary/10 via-neon-glow/5 to-primary/5 rounded-lg sm:rounded-xl border-2 border-primary/30 hover-glow">
+                                            <div className="flex items-center gap-3 mb-3">
+                                                <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/20 flex items-center justify-center glow-neon">
+                                                    <Users className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+                                                </div>
+                                                <div className="flex-1 min-w-0">
+                                                    <h3 className="font-bold text-base sm:text-lg text-primary font-orbitron">Join Our Community</h3>
+                                                    <p className="text-xs sm:text-sm text-foreground/80">
+                                                        <span className="text-primary font-semibold">Mandatory</span> for better selection chances
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            {/* WhatsApp Community */}
+                                            <div className="space-y-3 p-3 sm:p-4 bg-glass rounded-lg border border-primary/20">
+                                                <div className="flex items-start space-x-2.5 sm:space-x-3">
+                                                    <Checkbox
+                                                        id="whatsapp"
+                                                        checked={formData.joinedWhatsApp}
+                                                        onCheckedChange={(checked) => {
+                                                            setFormData((prev) => ({ ...prev, joinedWhatsApp: checked as boolean }));
+                                                            if (errors.socialMedia) {
+                                                                setErrors((prev) => ({ ...prev, socialMedia: undefined }));
+                                                            }
+                                                        }}
+                                                        disabled={isSubmitting}
+                                                        className={`mt-0.5 sm:mt-1 border-primary/50 data-[state=checked]:bg-primary data-[state=checked]:border-primary ${errors.socialMedia ? 'border-red-500' : ''}`}
+                                                    />
+                                                    <div className="flex-1 min-w-0">
+                                                        <Label
+                                                            htmlFor="whatsapp"
+                                                            className="text-xs sm:text-sm font-medium leading-relaxed cursor-pointer text-foreground/90 flex items-center gap-2 flex-wrap"
+                                                        >
+                                                            <MessageCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+                                                            <span>I have joined the TechVerse WhatsApp Community <span className="text-primary">*</span></span>
+                                                        </Label>
+                                                        <a
+                                                            href="https://chat.whatsapp.com/DRBBLzTOMndAEaf7e9Ddq9"
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="inline-block mt-2 text-xs sm:text-sm text-primary hover:text-primary/80 underline hover:no-underline transition-all"
+                                                        >
+                                                            Click here to join WhatsApp Community →
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                                {/* Screenshot uploads removed (optional) */}
+                                            </div>
+
+                                            {/* LinkedIn Page */}
+                                            <div className="space-y-3 p-3 sm:p-4 bg-glass rounded-lg border border-primary/20">
+                                                <div className="flex items-start space-x-2.5 sm:space-x-3">
+                                                    <Checkbox
+                                                        id="linkedinFollow"
+                                                        checked={formData.followedLinkedIn}
+                                                        onCheckedChange={(checked) => {
+                                                            setFormData((prev) => ({ ...prev, followedLinkedIn: checked as boolean }));
+                                                            if (errors.socialMedia) {
+                                                                setErrors((prev) => ({ ...prev, socialMedia: undefined }));
+                                                            }
+                                                        }}
+                                                        disabled={isSubmitting}
+                                                        className={`mt-0.5 sm:mt-1 border-primary/50 data-[state=checked]:bg-primary data-[state=checked]:border-primary ${errors.socialMedia ? 'border-red-500' : ''}`}
+                                                    />
+                                                    <div className="flex-1 min-w-0">
+                                                        <Label
+                                                            htmlFor="linkedinFollow"
+                                                            className="text-xs sm:text-sm font-medium leading-relaxed cursor-pointer text-foreground/90 flex items-center gap-2 flex-wrap"
+                                                        >
+                                                            <Linkedin className="w-4 h-4 text-blue-500 flex-shrink-0" />
+                                                            <span>I follow TechVerse on LinkedIn <span className="text-primary">*</span></span>
+                                                        </Label>
+                                                        <a
+                                                            href="https://www.linkedin.com/company/techversecommunity/about/?viewAsMember=true"
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="inline-block mt-2 text-xs sm:text-sm text-primary hover:text-primary/80 underline hover:no-underline transition-all"
+                                                        >
+                                                            Click here to follow on LinkedIn →
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                                {/* LinkedIn screenshot upload removed */}
+                                            </div>
+
+                                            {/* Instagram Page */}
+                                            <div className="space-y-3 p-3 sm:p-4 bg-glass rounded-lg border border-primary/20">
+                                                <div className="flex items-start space-x-2.5 sm:space-x-3">
+                                                    <Checkbox
+                                                        id="instagramFollow"
+                                                        checked={formData.followedInstagram}
+                                                        onCheckedChange={(checked) => {
+                                                            setFormData((prev) => ({ ...prev, followedInstagram: checked as boolean }));
+                                                            if (errors.socialMedia) {
+                                                                setErrors((prev) => ({ ...prev, socialMedia: undefined }));
+                                                            }
+                                                        }}
+                                                        disabled={isSubmitting}
+                                                        className={`mt-0.5 sm:mt-1 border-primary/50 data-[state=checked]:bg-primary data-[state=checked]:border-primary ${errors.socialMedia ? 'border-red-500' : ''}`}
+                                                    />
+                                                    <div className="flex-1 min-w-0">
+                                                        <Label
+                                                            htmlFor="instagramFollow"
+                                                            className="text-xs sm:text-sm font-medium leading-relaxed cursor-pointer text-foreground/90 flex items-center gap-2 flex-wrap"
+                                                        >
+                                                            <Instagram className="w-4 h-4 text-pink-500 flex-shrink-0" />
+                                                            <span>I follow TechVerse on Instagram <span className="text-primary">*</span></span>
+                                                        </Label>
+                                                        <a
+                                                            href="https://www.instagram.com/techversecommunity/"
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="inline-block mt-2 text-xs sm:text-sm text-primary hover:text-primary/80 underline hover:no-underline transition-all"
+                                                        >
+                                                            Click here to follow on Instagram →
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                                {/* Instagram screenshot upload removed */}
+                                            </div>
+
+                                            {errors.socialMedia && (
+                                                <p className="text-xs sm:text-sm text-red-400 flex items-center gap-1 mt-2">
+                                                    <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                                                    {errors.socialMedia}
+                                                </p>
+                                            )}
+                                        </div>
+
+                                        {/* Terms and Conditions - Glass morphism style */}
+                                        <div className="space-y-2.5 sm:space-y-3 p-4 sm:p-5 md:p-6 bg-glass rounded-lg sm:rounded-xl border border-primary/20">
+                                            <div className="flex items-start space-x-2.5 sm:space-x-3">
+                                                <Checkbox
+                                                    id="terms"
+                                                    checked={formData.termsAccepted}
+                                                    onCheckedChange={handleCheckboxChange}
+                                                    disabled={isSubmitting}
+                                                    className={`mt-0.5 sm:mt-1 border-primary/50 data-[state=checked]:bg-primary data-[state=checked]:border-primary ${errors.termsAccepted ? 'border-red-500' : ''}`}
+                                                />
+                                                <div className="flex-1 min-w-0">
+                                                    <Label
+                                                        htmlFor="terms"
+                                                        className="text-xs sm:text-sm font-medium leading-relaxed cursor-pointer text-foreground/90"
+                                                    >
+                                                        I hereby confirm that all the information provided above is accurate and complete.
+                                                        I understand that this data will be used solely for the purpose of ensuring a smooth
+                                                        and fair competition process. I consent to the verification of my details by the
+                                                        judging panel and agree to receive official communication regarding BuildFolio 2025
+                                                        via email. <span className="text-primary">*</span>
+                                                    </Label>
+                                                </div>
+                                            </div>
+                                            {errors.termsAccepted && (
+                                                <p className="text-xs sm:text-sm text-red-400 flex items-center gap-1 ml-6 sm:ml-7">
+                                                    <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                                                    {errors.termsAccepted}
+                                                </p>
+                                            )}
+                                        </div>
+
+                                        {/* Status Messages */}
+                                        {submitStatus.type && (
+                                            <Alert
+                                                variant={submitStatus.type === 'error' ? 'destructive' : 'default'}
+                                                className={
+                                                    submitStatus.type === 'success'
+                                                        ? 'border-primary bg-primary/10 text-foreground backdrop-blur-xl'
+                                                        : 'bg-glass backdrop-blur-xl'
+                                                }
+                                            >
+                                                {submitStatus.type === 'success' ? (
+                                                    <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
+                                                ) : (
+                                                    <AlertCircle className="h-4 w-4 sm:h-5 sm:w-5" />
+                                                )}
+                                                <AlertTitle className="text-sm sm:text-base font-semibold font-orbitron">
+                                                    {submitStatus.type === 'success' ? 'Success!' : 'Error'}
+                                                </AlertTitle>
+                                                <AlertDescription className="text-xs sm:text-sm">
+                                                    {submitStatus.message}
+                                                </AlertDescription>
+                                            </Alert>
                                         )}
-                                        <AlertTitle className="text-sm sm:text-base font-semibold font-orbitron">
-                                            {submitStatus.type === 'success' ? 'Success!' : 'Error'}
-                                        </AlertTitle>
-                                        <AlertDescription className="text-xs sm:text-sm">
-                                            {submitStatus.message}
-                                        </AlertDescription>
-                                    </Alert>
+
+                                        {/* Submit Button */}
+                                        <Button
+                                            type="submit"
+                                            className="w-full h-12 sm:h-14 text-base sm:text-lg font-bold bg-primary hover:bg-primary/90 text-dark-space shadow-lg hover-glow font-orbitron glow-neon"
+                                            disabled={isSubmitting}
+                                        >
+                                            {isSubmitting ? (
+                                                <>
+                                                    <Loader2 className="mr-2 h-4 w-4 sm:h-5 sm:w-5 animate-spin" />
+                                                    <span className="text-sm sm:text-base">Processing...</span>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <CheckCircle2 className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
+                                                    <span className="text-sm sm:text-base">Submit Registration</span>
+                                                </>
+                                            )}
+                                        </Button>
+
+                                        {/* Footer Info - Glass morphism style */}
+                                        <div className="text-center space-y-2 sm:space-y-3 pt-3 sm:pt-4">
+                                            <div className="flex items-center justify-center gap-2 text-foreground/70">
+                                                <Shield className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary flex-shrink-0" />
+                                                <span className="text-xs sm:text-sm">Your data is encrypted and securely stored</span>
+                                            </div>
+                                            <p className="text-xs sm:text-sm text-foreground/60 px-2">
+                                                Need help? Contact us at{' '}
+                                                <a href="mailto:techversecommunity7@gmail.com" className="text-primary hover:text-primary/80 hover:underline transition-colors break-all">
+                                                    techversecommunity7@gmail.com
+                                                </a>
+                                            </p>
+                                        </div>
+                                    </>
                                 )}
-
-                                {/* Submit Button */}
-                                <Button
-                                    type="submit"
-                                    className="w-full h-12 sm:h-14 text-base sm:text-lg font-bold bg-primary hover:bg-primary/90 text-dark-space shadow-lg hover-glow font-orbitron glow-neon"
-                                    disabled={isSubmitting}
-                                >
-                                    {isSubmitting ? (
-                                        <>
-                                            <Loader2 className="mr-2 h-4 w-4 sm:h-5 sm:w-5 animate-spin" />
-                                            <span className="text-sm sm:text-base">Processing...</span>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <CheckCircle2 className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
-                                            <span className="text-sm sm:text-base">Submit Registration</span>
-                                        </>
-                                    )}
-                                </Button>
-
-                                {/* Footer Info - Glass morphism style */}
-                                <div className="text-center space-y-2 sm:space-y-3 pt-3 sm:pt-4">
-                                    <div className="flex items-center justify-center gap-2 text-foreground/70">
-                                        <Shield className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary flex-shrink-0" />
-                                        <span className="text-xs sm:text-sm">Your data is encrypted and securely stored</span>
-                                    </div>
-                                    <p className="text-xs sm:text-sm text-foreground/60 px-2">
-                                        Need help? Contact us at{' '}
-                                        <a href="mailto:techversecommunity7@gmail.com" className="text-primary hover:text-primary/80 hover:underline transition-colors break-all">
-                                            techversecommunity7@gmail.com
-                                        </a>
-                                    </p>
-                                </div>
                             </form>
                         </CardContent>
                     </Card>
